@@ -1117,6 +1117,7 @@ export class Battle {
 	ignoreSpects = !!Dex.prefs('ignorespects');
 	debug: boolean;
 	joinButtons = false;
+	autoresize: boolean;
 
 	/**
 	 * The actual pause state. Will only be true if playback is actually
@@ -1128,11 +1129,13 @@ export class Battle {
 		$frame?: JQuery<HTMLElement>,
 		$logFrame?: JQuery<HTMLElement>,
 		id?: ID,
-		log?: string[],
+		log?: string[] | string,
 		paused?: boolean,
 		isReplay?: boolean,
 		debug?: boolean,
 		subscription?: Battle['subscription'],
+		/** autoresize `$frame` for browsers below 640px width (mobile) */
+		autoresize?: boolean,
 	} = {}) {
 		this.id = options.id || '';
 
@@ -1147,8 +1150,10 @@ export class Battle {
 		this.paused = !!options.paused;
 		this.started = !this.paused;
 		this.debug = !!options.debug;
+		if (typeof options.log === 'string') options.log = options.log.split('\n');
 		this.stepQueue = options.log || [];
 		this.subscription = options.subscription || null;
+		this.autoresize = !!options.autoresize;
 
 		this.p1 = new Side(this, 0);
 		this.p2 = new Side(this, 1);
@@ -1159,7 +1164,29 @@ export class Battle {
 		this.farSide = this.p2;
 
 		this.resetStep();
+		if (this.autoresize) {
+			window.addEventListener('resize', this.onResize);
+			this.onResize();
+		}
 	}
+
+	onResize = () => {
+		var width = $(window).width()!;
+		if (width < 950 || this.hardcoreMode) {
+			this.messageShownTime = 500;
+		} else {
+			this.messageShownTime = 1;
+		}
+		if (width && width < 640) {
+			var scale = (width / 640);
+			this.scene.$frame?.css('transform', 'scale(' + scale + ')');
+			this.scene.$frame?.css('transform-origin', 'top left');
+			// this.$foeHint.css('transform', 'scale(' + scale + ')');
+		} else {
+			this.scene.$frame?.css('transform', 'none');
+			// this.$foeHint.css('transform', 'none');
+		}
+	};
 
 	subscribe(listener: Battle['subscription']) {
 		this.subscription = listener;
@@ -1254,6 +1281,9 @@ export class Battle {
 		this.nextStep();
 	}
 	destroy() {
+		if (this.autoresize) {
+			window.removeEventListener('resize', this.onResize);
+		}
 		this.scene.destroy();
 
 		for (let i = 0; i < this.sides.length; i++) {
@@ -2481,6 +2511,7 @@ export class Battle {
 		case '-terastallize': {
 			let poke = this.getPokemon(args[1])!;
 			let type = Dex.types.get(args[2]).name;
+			poke.removeVolatile('typeadd' as ID);
 			poke.terastallized = type;
 			poke.details += `, tera:${type}`;
 			poke.searchid += `, tera:${type}`;

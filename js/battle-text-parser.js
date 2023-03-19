@@ -788,9 +788,6 @@ if(kwArgs.upkeep){
 return this.template('upkeep',weather,'NODEFAULT');
 }
 var _line13=this.maybeAbility(kwArgs.from,kwArgs.of);
-if(BattleTextParser.effectId(kwArgs.from)==='orichalcumpulse'){
-return _line13+this.template('start','orichalcumpulse').replace('[POKEMON]',this.pokemon(kwArgs.of));
-}
 var _template43=this.template('start',weather,'NODEFAULT');
 if(!_template43)_template43=this.template('startFieldEffect').replace('[EFFECT]',this.effect(weather));
 return _line13+_template43;
@@ -864,6 +861,9 @@ _templateId4='activateNoTarget';
 }
 if((_id14==='protosynthesis'||_id14==='quarkdrive')&&kwArgs.fromitem){
 _templateId4='activateFromItem';
+}
+if(_id14==='orichalcumpulse'&&kwArgs.source){
+_templateId4='start';
 }
 var _template47=this.template(_templateId4,_effect11,'NODEFAULT');
 if(!_template47){

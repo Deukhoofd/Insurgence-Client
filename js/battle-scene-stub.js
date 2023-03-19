@@ -11,7 +11,8 @@ numericId=NaN;this.
 timeOffset=NaN;this.
 interruptionCount=NaN;this.
 messagebarOpen=false;this.
-log={add:function(args,kwargs){}};}var _proto=BattleSceneStub.prototype;_proto.
+log={add:function(args,kwargs){}};this.
+$frame=void 0;}var _proto=BattleSceneStub.prototype;_proto.
 
 abilityActivateAnim=function abilityActivateAnim(pokemon,result){};_proto.
 addPokemonSprite=function addPokemonSprite(pokemon){return null;};_proto.

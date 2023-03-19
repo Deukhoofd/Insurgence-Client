@@ -1124,6 +1124,7 @@ Battle=function(){
 
 
 
+
 function Battle()
 
 
@@ -1133,33 +1134,59 @@ function Battle()
 
 
 
-{var options=arguments.length>0&&arguments[0]!==undefined?arguments[0]:{};this.scene=void 0;this.sidesSwitched=false;this.stepQueue=void 0;this.preemptStepQueue=[];this.waitForAnimations=true;this.currentStep=0;this.seeking=null;this.activeMoveIsSpread=null;this.subscription=void 0;this.mute=false;this.messageFadeTime=300;this.messageShownTime=1;this.turnsSinceMoved=0;this.turn=-1;this.atQueueEnd=false;this.started=false;this.ended=false;this.isReplay=false;this.usesUpkeep=false;this.weather='';this.pseudoWeather=[];this.weatherTimeLeft=0;this.weatherMinTimeLeft=0;this.mySide=null;this.nearSide=null;this.farSide=null;this.p1=null;this.p2=null;this.p3=null;this.p4=null;this.pokemonControlled=0;this.sides=null;this.myPokemon=null;this.myAllyPokemon=null;this.lastMove='';this.gen=8;this.dex=Dex;this.teamPreviewCount=0;this.speciesClause=false;this.tier='';this.gameType='singles';this.rated=false;this.rules={};this.isBlitz=false;this.endLastTurnPending=false;this.totalTimeLeft=0;this.graceTimeLeft=0;this.kickingInactive=false;this.id='';this.roomid='';this.hardcoreMode=false;this.ignoreNicks=!!Dex.prefs('ignorenicks');this.ignoreOpponent=!!Dex.prefs('ignoreopp');this.ignoreSpects=!!Dex.prefs('ignorespects');this.debug=void 0;this.joinButtons=false;this.paused=void 0;
-this.id=options.id||'';
 
-if(options.$frame&&options.$logFrame){
-this.scene=new BattleScene(this,options.$frame,options.$logFrame);
-}else if(!options.$frame&&!options.$logFrame){
-this.scene=new BattleSceneStub();
+
+{var _this=this;var options=arguments.length>0&&arguments[0]!==undefined?arguments[0]:{};this.scene=void 0;this.sidesSwitched=false;this.stepQueue=void 0;this.preemptStepQueue=[];this.waitForAnimations=true;this.currentStep=0;this.seeking=null;this.activeMoveIsSpread=null;this.subscription=void 0;this.mute=false;this.messageFadeTime=300;this.messageShownTime=1;this.turnsSinceMoved=0;this.turn=-1;this.atQueueEnd=false;this.started=false;this.ended=false;this.isReplay=false;this.usesUpkeep=false;this.weather='';this.pseudoWeather=[];this.weatherTimeLeft=0;this.weatherMinTimeLeft=0;this.mySide=null;this.nearSide=null;this.farSide=null;this.p1=null;this.p2=null;this.p3=null;this.p4=null;this.pokemonControlled=0;this.sides=null;this.myPokemon=null;this.myAllyPokemon=null;this.lastMove='';this.gen=8;this.dex=Dex;this.teamPreviewCount=0;this.speciesClause=false;this.tier='';this.gameType='singles';this.rated=false;this.rules={};this.isBlitz=false;this.endLastTurnPending=false;this.totalTimeLeft=0;this.graceTimeLeft=0;this.kickingInactive=false;this.id='';this.roomid='';this.hardcoreMode=false;this.ignoreNicks=!!Dex.prefs('ignorenicks');this.ignoreOpponent=!!Dex.prefs('ignoreopp');this.ignoreSpects=!!Dex.prefs('ignorespects');this.debug=void 0;this.joinButtons=false;this.autoresize=void 0;this.paused=void 0;this.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+onResize=function(){
+var width=$(window).width();
+if(width<950||_this.hardcoreMode){
+_this.messageShownTime=500;
 }else{
-throw new Error("You must specify $frame and $logFrame simultaneously");
+_this.messageShownTime=1;
 }
+if(width&&width<640){var _this$scene$$frame,_this$scene$$frame2;
+var scale=width/640;
+(_this$scene$$frame=_this.scene.$frame)==null?void 0:_this$scene$$frame.css('transform','scale('+scale+')');
+(_this$scene$$frame2=_this.scene.$frame)==null?void 0:_this$scene$$frame2.css('transform-origin','top left');
 
-this.paused=!!options.paused;
-this.started=!this.paused;
-this.debug=!!options.debug;
-this.stepQueue=options.log||[];
-this.subscription=options.subscription||null;
+}else{var _this$scene$$frame3;
+(_this$scene$$frame3=_this.scene.$frame)==null?void 0:_this$scene$$frame3.css('transform','none');
 
-this.p1=new Side(this,0);
-this.p2=new Side(this,1);
-this.sides=[this.p1,this.p2];
-this.p2.foe=this.p1;
-this.p1.foe=this.p2;
-this.nearSide=this.mySide=this.p1;
-this.farSide=this.p2;
-
-this.resetStep();
-}var _proto3=Battle.prototype;_proto3.
+}
+};this.id=options.id||'';if(options.$frame&&options.$logFrame){this.scene=new BattleScene(this,options.$frame,options.$logFrame);}else if(!options.$frame&&!options.$logFrame){this.scene=new BattleSceneStub();}else{throw new Error("You must specify $frame and $logFrame simultaneously");}this.paused=!!options.paused;this.started=!this.paused;this.debug=!!options.debug;if(typeof options.log==='string')options.log=options.log.split('\n');this.stepQueue=options.log||[];this.subscription=options.subscription||null;this.autoresize=!!options.autoresize;this.p1=new Side(this,0);this.p2=new Side(this,1);this.sides=[this.p1,this.p2];this.p2.foe=this.p1;this.p1.foe=this.p2;this.nearSide=this.mySide=this.p1;this.farSide=this.p2;this.resetStep();if(this.autoresize){window.addEventListener('resize',this.onResize);this.onResize();}}var _proto3=Battle.prototype;_proto3.
 
 subscribe=function subscribe(listener){
 this.subscription=listener;
@@ -1207,10 +1234,10 @@ return true;
 }
 return false;
 };_proto3.
-abilityActive=function abilityActive(abilities){var _this=this;
+abilityActive=function abilityActive(abilities){var _this2=this;
 if(typeof abilities==='string')abilities=[abilities];
 if(this.ngasActive()){
-abilities=abilities.filter(function(a){return _this.dex.abilities.get(a).isPermanent;});
+abilities=abilities.filter(function(a){return _this2.dex.abilities.get(a).isPermanent;});
 if(!abilities.length)return false;
 }for(var _i10=0,_this$getAllActive2=
 this.getAllActive();_i10<_this$getAllActive2.length;_i10++){var active=_this$getAllActive2[_i10];
@@ -1254,6 +1281,9 @@ this.resetTurnsSinceMoved();
 this.nextStep();
 };_proto3.
 destroy=function destroy(){
+if(this.autoresize){
+window.removeEventListener('resize',this.onResize);
+}
 this.scene.destroy();
 
 for(var i=0;i<this.sides.length;i++){
@@ -2481,6 +2511,7 @@ break;
 case'-terastallize':{
 var _poke31=this.getPokemon(args[1]);
 var type=Dex.types.get(args[2]).name;
+_poke31.removeVolatile('typeadd');
 _poke31.terastallized=type;
 _poke31.details+=", tera:"+type;
 _poke31.searchid+=", tera:"+type;
@@ -3760,7 +3791,7 @@ if(this.atQueueEnd)return false;
 if(this.seeking!==null)return true;
 return!(this.paused&&this.turn>=0);
 };_proto3.
-nextStep=function nextStep(){var _this2=this;
+nextStep=function nextStep(){var _this3=this;
 if(!this.shouldStep())return;
 
 this.scene.startAnimations();
@@ -3798,8 +3829,8 @@ if(!animations)return;
 
 var interruptionCount=this.scene.interruptionCount;
 animations.done(function(){
-if(interruptionCount===_this2.scene.interruptionCount){
-_this2.nextStep();
+if(interruptionCount===_this3.scene.interruptionCount){
+_this3.nextStep();
 }
 });
 };_proto3.

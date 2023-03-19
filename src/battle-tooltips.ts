@@ -1764,6 +1764,12 @@ class BattleTooltips {
 				value.weatherModify(2);
 			}
 		}
+		if (move.id === 'hydrosteam') {
+			value.weatherModify(1.5, 'Sunny Day');
+		}
+		if (move.id === 'psyblade' && this.battle.hasPseudoWeather('Electric Terrain')) {
+			value.modify(1.5, 'Electric Terrain');
+		}
 		if (move.id === 'terrainpulse' && pokemon.isGrounded(serverPokemon)) {
 			if (
 				this.battle.hasPseudoWeather('Electric Terrain') ||
@@ -2264,7 +2270,7 @@ class BattleStatGuesser {
 		this.dex = formatid ? Dex.mod(formatid.slice(0, 4) as ID) : Dex;
 		this.ignoreEVLimits = (
 			this.dex.gen < 3 ||
-			(this.formatid.endsWith('hackmons') && this.dex.gen !== 6) ||
+			((this.formatid.endsWith('hackmons') || this.formatid.endsWith('bh')) && this.dex.gen !== 6) ||
 			this.formatid.includes('metronomebattle') ||
 			this.formatid.endsWith('norestrictions')
 		);

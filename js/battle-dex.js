@@ -568,11 +568,14 @@ if(species.isMega||formeid&&(
 formeid==='-crowned'||
 formeid==='-eternal'||
 formeid==='-eternamax'||
+formeid==='-four'||
 formeid==='-hangry'||
+formeid==='-hero'||
 formeid==='-lowkey'||
 formeid==='-noice'||
 formeid==='-primal'||
 formeid==='-rapidstrike'||
+formeid==='-roaming'||
 formeid==='-school'||
 formeid==='-sky'||
 formeid==='-starter'||
@@ -585,8 +588,10 @@ baseSpeciesid==='cramorant'||
 baseSpeciesid==='indeedee'||
 baseSpeciesid==='lycanroc'||
 baseSpeciesid==='necrozma'||
+baseSpeciesid==='oinkologne'||
 baseSpeciesid==='oricorio'||
 baseSpeciesid==='slowpoke'||
+baseSpeciesid==='tatsugiri'||
 baseSpeciesid==='zygarde'))
 {
 spriteData.cryurl+=formeid;
@@ -734,7 +739,7 @@ var num=this.getPokemonIconNum(id,((_pokemon4=pokemon)==null?void 0:_pokemon4.ge
 var top=Math.floor(num/12)*30;
 var left=num%12*40;
 var fainted=(_pokemon5=pokemon)!=null&&_pokemon5.fainted?";opacity:.3;filter:grayscale(100%) brightness(.5)":"";
-return"background:transparent url("+Dex.resourcePrefix+"sprites/pokemonicons-sheet.png?v10) no-repeat scroll -"+left+"px -"+top+"px"+fainted;
+return"background:transparent url("+Dex.resourcePrefix+"sprites/pokemonicons-sheet.png?v11) no-repeat scroll -"+left+"px -"+top+"px"+fainted;
 };_proto2.
 
 getTeambuilderSpriteData=function getTeambuilderSpriteData(pokemon){var gen=arguments.length>1&&arguments[1]!==undefined?arguments[1]:0;
