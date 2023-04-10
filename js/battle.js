@@ -3749,13 +3749,19 @@ this.nextStep();
 (_this$subscription8=this.subscription)==null?void 0:_this$subscription8.call(this,'playing');
 };_proto3.
 skipTurn=function skipTurn(){
-this.seekTurn(this.turn+1);
+this.seekBy(1);
+};_proto3.
+seekBy=function seekBy(deltaTurn){var _this$seeking;
+if(this.seeking===Infinity&&deltaTurn<0){
+return this.seekTurn(this.turn+1);
+}
+this.seekTurn(((_this$seeking=this.seeking)!=null?_this$seeking:this.turn)+deltaTurn);
 };_proto3.
 seekTurn=function seekTurn(turn,forceReset){
 if(isNaN(turn))return;
 turn=Math.max(Math.floor(turn),0);
 
-if(this.seeking!==null&&this.seeking>turn&&!forceReset){
+if(this.seeking!==null&&turn>this.turn&&!forceReset){
 this.seeking=turn;
 return;
 }
@@ -3794,9 +3800,11 @@ return!(this.paused&&this.turn>=0);
 nextStep=function nextStep(){var _this3=this;
 if(!this.shouldStep())return;
 
+var time=Date.now();
 this.scene.startAnimations();
 var animations=undefined;
 
+var interruptionCount;
 do{
 this.waitForAnimations=true;
 if(this.currentStep>=this.stepQueue.length){var _this$subscription11;
@@ -3817,6 +3825,16 @@ animations=this.scene.finishAnimations();
 }else if(this.waitForAnimations==='simult'){
 this.scene.timeOffset=0;
 }
+
+if(Date.now()-time>300){
+interruptionCount=this.scene.interruptionCount;
+setTimeout(function(){
+if(interruptionCount===_this3.scene.interruptionCount){
+_this3.nextStep();
+}
+},1);
+return;
+}
 }while(!animations&&this.shouldStep());
 
 if(this.paused&&this.turn>=0&&this.seeking===null){
@@ -3827,7 +3845,7 @@ return;
 
 if(!animations)return;
 
-var interruptionCount=this.scene.interruptionCount;
+interruptionCount=this.scene.interruptionCount;
 animations.done(function(){
 if(interruptionCount===_this3.scene.interruptionCount){
 _this3.nextStep();

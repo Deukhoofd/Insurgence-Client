@@ -855,6 +855,14 @@ var _template49=this.template('changeAbility',_id14);
 return _line15+_template49.replace('[TARGET]',this.pokemon(_target2));
 }
 
+if(_id14==='commander'){
+
+
+if(_target2===_pokemon19)return _line15;
+var _template50=this.template('activate',_id14);
+return _line15+_template50.replace('[POKEMON]',this.pokemon(_pokemon19)).replace(/\[TARGET\]/g,this.pokemon(_target2));
+}
+
 var _templateId4='activate';
 if(_id14==='forewarn'&&_pokemon19===_target2){
 _templateId4='activateNoTarget';
@@ -889,51 +897,51 @@ return _line15+_template47.replace('[POKEMON]',this.pokemon(_pokemon19)).replace
 
 case'-prepare':{
 var _pokemon20=args[1],_effect12=args[2],_target3=args[3];
-var _template50=this.template('prepare',_effect12);
-return _template50.replace('[POKEMON]',this.pokemon(_pokemon20)).replace('[TARGET]',this.pokemon(_target3));
+var _template51=this.template('prepare',_effect12);
+return _template51.replace('[POKEMON]',this.pokemon(_pokemon20)).replace('[TARGET]',this.pokemon(_target3));
 }
 
 case'-damage':{
 var _pokemon21=args[1],percentage=args[3];
-var _template51=this.template('damage',kwArgs.from,'NODEFAULT');
+var _template52=this.template('damage',kwArgs.from,'NODEFAULT');
 var _line16=this.maybeAbility(kwArgs.from,kwArgs.of||_pokemon21);
 var _id15=BattleTextParser.effectId(kwArgs.from);
-if(_template51){
-return _line16+_template51.replace('[POKEMON]',this.pokemon(_pokemon21));
+if(_template52){
+return _line16+_template52.replace('[POKEMON]',this.pokemon(_pokemon21));
 }
 
 if(!kwArgs.from){
-_template51=this.template(percentage?'damagePercentage':'damage');
-return _line16+_template51.replace('[POKEMON]',this.pokemon(_pokemon21)).replace('[PERCENTAGE]',percentage);
+_template52=this.template(percentage?'damagePercentage':'damage');
+return _line16+_template52.replace('[POKEMON]',this.pokemon(_pokemon21)).replace('[PERCENTAGE]',percentage);
 }
 if(kwArgs.from.startsWith('item:')){
-_template51=this.template(kwArgs.of?'damageFromPokemon':'damageFromItem');
-return _line16+_template51.replace('[POKEMON]',this.pokemon(_pokemon21)).replace('[ITEM]',this.effect(kwArgs.from)).replace('[SOURCE]',this.pokemon(kwArgs.of));
+_template52=this.template(kwArgs.of?'damageFromPokemon':'damageFromItem');
+return _line16+_template52.replace('[POKEMON]',this.pokemon(_pokemon21)).replace('[ITEM]',this.effect(kwArgs.from)).replace('[SOURCE]',this.pokemon(kwArgs.of));
 }
 if(kwArgs.partiallytrapped||_id15==='bind'||_id15==='wrap'){
-_template51=this.template('damageFromPartialTrapping');
-return _line16+_template51.replace('[POKEMON]',this.pokemon(_pokemon21)).replace('[MOVE]',this.effect(kwArgs.from));
+_template52=this.template('damageFromPartialTrapping');
+return _line16+_template52.replace('[POKEMON]',this.pokemon(_pokemon21)).replace('[MOVE]',this.effect(kwArgs.from));
 }
 
-_template51=this.template('damage');
-return _line16+_template51.replace('[POKEMON]',this.pokemon(_pokemon21));
+_template52=this.template('damage');
+return _line16+_template52.replace('[POKEMON]',this.pokemon(_pokemon21));
 }
 
 case'-heal':{
 var _pokemon22=args[1];
-var _template52=this.template('heal',kwArgs.from,'NODEFAULT');
+var _template53=this.template('heal',kwArgs.from,'NODEFAULT');
 var _line17=this.maybeAbility(kwArgs.from,_pokemon22);
-if(_template52){
-return _line17+_template52.replace('[POKEMON]',this.pokemon(_pokemon22)).replace('[SOURCE]',this.pokemon(kwArgs.of)).replace('[NICKNAME]',kwArgs.wisher);
+if(_template53){
+return _line17+_template53.replace('[POKEMON]',this.pokemon(_pokemon22)).replace('[SOURCE]',this.pokemon(kwArgs.of)).replace('[NICKNAME]',kwArgs.wisher);
 }
 
 if(kwArgs.from&&!kwArgs.from.startsWith('ability:')){
-_template52=this.template('healFromEffect');
-return _line17+_template52.replace('[POKEMON]',this.pokemon(_pokemon22)).replace('[EFFECT]',this.effect(kwArgs.from));
+_template53=this.template('healFromEffect');
+return _line17+_template53.replace('[POKEMON]',this.pokemon(_pokemon22)).replace('[EFFECT]',this.effect(kwArgs.from));
 }
 
-_template52=this.template('heal');
-return _line17+_template52.replace('[POKEMON]',this.pokemon(_pokemon22));
+_template53=this.template('heal');
+return _line17+_template53.replace('[POKEMON]',this.pokemon(_pokemon22));
 }
 
 case'-boost':case'-unboost':{var _kwArgs$from4;
@@ -948,19 +956,19 @@ if(amount===0)_templateId5+='0';
 if(amount&&kwArgs.zeffect){
 _templateId5+=kwArgs.multiple?'MultipleFromZEffect':'FromZEffect';
 }else if(amount&&(_kwArgs$from4=kwArgs.from)!=null&&_kwArgs$from4.startsWith('item:')){
-var _template54=this.template(_templateId5+'FromItem',kwArgs.from);
-return _line18+_template54.replace('[POKEMON]',this.pokemon(_pokemon23)).replace('[STAT]',BattleTextParser.stat(_stat2)).replace('[ITEM]',this.effect(kwArgs.from));
+var _template55=this.template(_templateId5+'FromItem',kwArgs.from);
+return _line18+_template55.replace('[POKEMON]',this.pokemon(_pokemon23)).replace('[STAT]',BattleTextParser.stat(_stat2)).replace('[ITEM]',this.effect(kwArgs.from));
 }
-var _template53=this.template(_templateId5,kwArgs.from);
-return _line18+_template53.replace('[POKEMON]',this.pokemon(_pokemon23)).replace('[STAT]',BattleTextParser.stat(_stat2));
+var _template54=this.template(_templateId5,kwArgs.from);
+return _line18+_template54.replace('[POKEMON]',this.pokemon(_pokemon23)).replace('[STAT]',BattleTextParser.stat(_stat2));
 }
 
 case'-setboost':{
 var _pokemon24=args[1];
 var _effect13=kwArgs.from;
 var _line19=this.maybeAbility(_effect13,kwArgs.of||_pokemon24);
-var _template55=this.template('boost',_effect13);
-return _line19+_template55.replace('[POKEMON]',this.pokemon(_pokemon24));
+var _template56=this.template('boost',_effect13);
+return _line19+_template56.replace('[POKEMON]',this.pokemon(_pokemon24));
 }
 
 case'-swapboost':{
@@ -970,15 +978,15 @@ var _id16=BattleTextParser.effectId(kwArgs.from);
 var _templateId6='swapBoost';
 if(_id16==='guardswap')_templateId6='swapDefensiveBoost';
 if(_id16==='powerswap')_templateId6='swapOffensiveBoost';
-var _template56=this.template(_templateId6,kwArgs.from);
-return _line20+_template56.replace('[POKEMON]',this.pokemon(_pokemon25)).replace('[TARGET]',this.pokemon(_target4));
+var _template57=this.template(_templateId6,kwArgs.from);
+return _line20+_template57.replace('[POKEMON]',this.pokemon(_pokemon25)).replace('[TARGET]',this.pokemon(_target4));
 }
 
 case'-copyboost':{
 var _pokemon26=args[1],_target5=args[2];
 var _line21=this.maybeAbility(kwArgs.from,kwArgs.of||_pokemon26);
-var _template57=this.template('copyBoost',kwArgs.from);
-return _line21+_template57.replace('[POKEMON]',this.pokemon(_pokemon26)).replace('[TARGET]',this.pokemon(_target5));
+var _template58=this.template('copyBoost',kwArgs.from);
+return _line21+_template58.replace('[POKEMON]',this.pokemon(_pokemon26)).replace('[TARGET]',this.pokemon(_target5));
 }
 
 case'-clearboost':case'-clearpositiveboost':case'-clearnegativeboost':{
@@ -986,15 +994,15 @@ var _pokemon27=args[1],source=args[2];
 var _line22=this.maybeAbility(kwArgs.from,kwArgs.of||_pokemon27);
 var _templateId7='clearBoost';
 if(kwArgs.zeffect)_templateId7='clearBoostFromZEffect';
-var _template58=this.template(_templateId7,kwArgs.from);
-return _line22+_template58.replace('[POKEMON]',this.pokemon(_pokemon27)).replace('[SOURCE]',this.pokemon(source));
+var _template59=this.template(_templateId7,kwArgs.from);
+return _line22+_template59.replace('[POKEMON]',this.pokemon(_pokemon27)).replace('[SOURCE]',this.pokemon(source));
 }
 
 case'-invertboost':{
 var _pokemon28=args[1];
 var _line23=this.maybeAbility(kwArgs.from,kwArgs.of||_pokemon28);
-var _template59=this.template('invertBoost',kwArgs.from);
-return _line23+_template59.replace('[POKEMON]',this.pokemon(_pokemon28));
+var _template60=this.template('invertBoost',kwArgs.from);
+return _line23+_template60.replace('[POKEMON]',this.pokemon(_pokemon28));
 }
 
 case'-clearallboost':{
@@ -1006,8 +1014,8 @@ var _pokemon29=args[1];
 var _templateId8=cmd.slice(1);
 if(_templateId8==='supereffective')_templateId8='superEffective';
 if(kwArgs.spread)_templateId8+='Spread';
-var _template60=this.template(_templateId8);
-return _template60.replace('[POKEMON]',this.pokemon(_pokemon29));
+var _template61=this.template(_templateId8);
+return _template61.replace('[POKEMON]',this.pokemon(_pokemon29));
 }
 
 case'-block':{
@@ -1016,8 +1024,8 @@ var _line24=this.maybeAbility(_effect14,kwArgs.of||_pokemon30);
 var _id17=BattleTextParser.effectId(_effect14);
 var _templateId9='block';
 if(_id17==='mist'&&this.gen<=2)_templateId9='blockGen'+this.gen;
-var _template61=this.template(_templateId9,_effect14);
-return _line24+_template61.replace('[POKEMON]',this.pokemon(_pokemon30)).replace('[SOURCE]',this.pokemon(attacker||kwArgs.of)).replace('[MOVE]',_move2);
+var _template62=this.template(_templateId9,_effect14);
+return _line24+_template62.replace('[POKEMON]',this.pokemon(_pokemon30)).replace('[SOURCE]',this.pokemon(attacker||kwArgs.of)).replace('[MOVE]',_move2);
 }
 
 case'-fail':{
@@ -1032,14 +1040,14 @@ _templateId10='blockMove';
 }else if(blocker==='uproar'&&kwArgs.msg){
 _templateId10='blockSelf';
 }
-var _template62=this.template(_templateId10,kwArgs.from);
-if(_template62){
-return _line25+_template62.replace('[POKEMON]',this.pokemon(_pokemon31));
+var _template63=this.template(_templateId10,kwArgs.from);
+if(_template63){
+return _line25+_template63.replace('[POKEMON]',this.pokemon(_pokemon31));
 }
 
 if(_id18==='unboost'){
-_template62=this.template(_stat3?'failSingular':'fail','unboost');
-return _line25+_template62.replace('[POKEMON]',this.pokemon(_pokemon31)).replace('[STAT]',_stat3);
+_template63=this.template(_stat3?'failSingular':'fail','unboost');
+return _line25+_template63.replace('[POKEMON]',this.pokemon(_pokemon31)).replace('[STAT]',_stat3);
 }
 
 _templateId10='fail';
@@ -1049,30 +1057,30 @@ _templateId10='alreadyStarted';
 if(kwArgs.heavy)_templateId10='failTooHeavy';
 if(kwArgs.weak)_templateId10='fail';
 if(kwArgs.forme)_templateId10='failWrongForme';
-_template62=this.template(_templateId10,_id18);
-return _line25+_template62.replace('[POKEMON]',this.pokemon(_pokemon31));
+_template63=this.template(_templateId10,_id18);
+return _line25+_template63.replace('[POKEMON]',this.pokemon(_pokemon31));
 }
 
 case'-immune':{
 var _pokemon32=args[1];
 var _line26=this.maybeAbility(kwArgs.from,kwArgs.of||_pokemon32);
-var _template63=this.template('block',kwArgs.from);
-if(!_template63){
+var _template64=this.template('block',kwArgs.from);
+if(!_template64){
 var _templateId11=kwArgs.ohko?'immuneOHKO':'immune';
-_template63=this.template(_pokemon32?_templateId11:'immuneNoPokemon',kwArgs.from);
+_template64=this.template(_pokemon32?_templateId11:'immuneNoPokemon',kwArgs.from);
 }
-return _line26+_template63.replace('[POKEMON]',this.pokemon(_pokemon32));
+return _line26+_template64.replace('[POKEMON]',this.pokemon(_pokemon32));
 }
 
 case'-miss':{
 var _source=args[1],_pokemon33=args[2];
 var _line27=this.maybeAbility(kwArgs.from,kwArgs.of||_pokemon33);
 if(!_pokemon33){
-var _template65=this.template('missNoPokemon');
-return _line27+_template65.replace('[SOURCE]',this.pokemon(_source));
+var _template66=this.template('missNoPokemon');
+return _line27+_template66.replace('[SOURCE]',this.pokemon(_source));
 }
-var _template64=this.template('miss');
-return _line27+_template64.replace('[POKEMON]',this.pokemon(_pokemon33));
+var _template65=this.template('miss');
+return _line27+_template65.replace('[POKEMON]',this.pokemon(_pokemon33));
 }
 
 case'-center':case'-ohko':case'-combine':{
@@ -1093,41 +1101,41 @@ _templateId12='megaNoItem';
 }
 if(!_id19&&cmd==='-mega'&&this.gen<7)_templateId12='megaGen6';
 if(!_item2&&cmd==='-mega')_templateId12='megaNoItem';
-var _template66=this.template(_templateId12,_id19);
+var _template67=this.template(_templateId12,_id19);
 var _side7=_pokemon34.slice(0,2);
 var pokemonName=this.pokemon(_pokemon34);
 if(cmd==='-mega'){
 var template2=this.template('transformMega');
-_template66+=template2.replace('[POKEMON]',pokemonName).replace('[SPECIES]',species);
+_template67+=template2.replace('[POKEMON]',pokemonName).replace('[SPECIES]',species);
 }
-return _template66.replace('[POKEMON]',pokemonName).replace('[ITEM]',_item2).replace('[TRAINER]',this.trainer(_side7));
+return _template67.replace('[POKEMON]',pokemonName).replace('[ITEM]',_item2).replace('[TRAINER]',this.trainer(_side7));
 }
 
 case'-terastallize':{
 var _pokemon35=args[1],type=args[2];
 var _id20='';
 var _templateId13=cmd.slice(1);
-var _template67=this.template(_templateId13,_id20);
+var _template68=this.template(_templateId13,_id20);
 var _pokemonName=this.pokemon(_pokemon35);
-return _template67.replace('[POKEMON]',_pokemonName).replace('[TYPE]',type);
+return _template68.replace('[POKEMON]',_pokemonName).replace('[TYPE]',type);
 }
 
 case'-zpower':{
 var _pokemon36=args[1];
-var _template68=this.template('zPower');
-return _template68.replace('[POKEMON]',this.pokemon(_pokemon36));
+var _template69=this.template('zPower');
+return _template69.replace('[POKEMON]',this.pokemon(_pokemon36));
 }
 
 case'-burst':{
 var _pokemon37=args[1];
-var _template69=this.template('activate',"Ultranecrozium Z");
-return _template69.replace('[POKEMON]',this.pokemon(_pokemon37));
+var _template70=this.template('activate',"Ultranecrozium Z");
+return _template70.replace('[POKEMON]',this.pokemon(_pokemon37));
 }
 
 case'-zbroken':{
 var _pokemon38=args[1];
-var _template70=this.template('zBroken');
-return _template70.replace('[POKEMON]',this.pokemon(_pokemon38));
+var _template71=this.template('zBroken');
+return _template71.replace('[POKEMON]',this.pokemon(_pokemon38));
 }
 
 case'-hitcount':{
@@ -1140,8 +1148,8 @@ return this.template('hitCount').replace('[NUMBER]',_num5);
 
 case'-waiting':{
 var _pokemon39=args[1],_target6=args[2];
-var _template71=this.template('activate',"Water Pledge");
-return _template71.replace('[POKEMON]',this.pokemon(_pokemon39)).replace('[TARGET]',this.pokemon(_target6));
+var _template72=this.template('activate',"Water Pledge");
+return _template72.replace('[POKEMON]',this.pokemon(_pokemon39)).replace('[TARGET]',this.pokemon(_target6));
 }
 
 case'-anim':{

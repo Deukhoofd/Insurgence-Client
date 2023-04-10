@@ -47,7 +47,8 @@ BattleLog=function(){
 
 
 
-function BattleLog(elem,scene,innerElem){var _this=this;this.elem=void 0;this.innerElem=void 0;this.scene=null;this.preemptElem=null;this.atBottom=true;this.className=void 0;this.battleParser=null;this.joinLeave=null;this.lastRename=null;this.perspective=-1;this.
+
+function BattleLog(elem,scene,innerElem){var _this=this;this.elem=void 0;this.innerElem=void 0;this.scene=null;this.preemptElem=null;this.atBottom=true;this.skippedLines=false;this.className=void 0;this.battleParser=null;this.joinLeave=null;this.lastRename=null;this.perspective=-1;this.
 
 
 
@@ -78,12 +79,42 @@ _this.atBottom=distanceFromBottom<30;
 reset=function reset(){
 this.innerElem.innerHTML='';
 this.atBottom=true;
+this.skippedLines=false;
 };_proto.
 destroy=function destroy(){
 this.elem.onscroll=null;
 };_proto.
-add=function add(args,kwArgs,preempt){var _this$scene,_window$app,_window$app$ignore,_window$app2,_window$app2$rooms,_this$scene2;
+addSeekEarlierButton=function addSeekEarlierButton(){var _this2=this;
+if(this.skippedLines)return;
+this.skippedLines=true;
+var el=document.createElement('div');
+el.className='chat';
+el.innerHTML='<button class="button earlier-button"><i class="fa fa-caret-up"></i><br />Earlier messages</button>';
+var button=el.getElementsByTagName('button')[0];
+button==null?void 0:button.addEventListener==null?void 0:button.addEventListener('click',function(e){var _this2$scene;
+e.preventDefault();
+(_this2$scene=_this2.scene)==null?void 0:_this2$scene.battle.seekTurn(_this2.scene.battle.turn-100);
+});
+this.addNode(el);
+};_proto.
+add=function add(args,kwArgs,preempt){var _this$scene,_this$scene2,_window$app,_window$app$ignore,_window$app2,_window$app2$rooms,_this$scene3;
 if(kwArgs!=null&&kwArgs.silent)return;
+if((_this$scene=this.scene)!=null&&_this$scene.battle.seeking){
+var battle=this.scene.battle;
+if(battle.stepQueue.length>2000){
+
+
+
+if(
+battle.seeking===Infinity?
+battle.currentStep<battle.stepQueue.length-2000:
+battle.turn<battle.seeking-100)
+{
+this.addSeekEarlierButton();
+return;
+}
+}
+}
 var divClass='chat';
 var divHTML='';
 var noNotify;
@@ -91,7 +122,7 @@ if(!['join','j','leave','l'].includes(args[0]))this.joinLeave=null;
 if(!['name','n'].includes(args[0]))this.lastRename=null;
 switch(args[0]){
 case'chat':case'c':case'c:':
-var battle=(_this$scene=this.scene)==null?void 0:_this$scene.battle;
+var _battle=(_this$scene2=this.scene)==null?void 0:_this$scene2.battle;
 var name;
 var message;
 if(args[0]==='c:'){
@@ -102,22 +133,22 @@ name=args[1];
 message=args[2];
 }
 var rank=name.charAt(0);
-if(battle!=null&&battle.ignoreSpects&&' +'.includes(rank))return;
-if(battle!=null&&battle.ignoreOpponent){
+if(_battle!=null&&_battle.ignoreSpects&&' +'.includes(rank))return;
+if(_battle!=null&&_battle.ignoreOpponent){
 if("\u2605\u2606".includes(rank)&&toUserid(name)!==app.user.get('userid'))return;
 }
 if((_window$app=window.app)!=null&&(_window$app$ignore=_window$app.ignore)!=null&&_window$app$ignore[toUserid(name)]&&" +\u2605\u2606".includes(rank))return;
-var isHighlighted=(_window$app2=window.app)==null?void 0:(_window$app2$rooms=_window$app2.rooms)==null?void 0:_window$app2$rooms[battle.roomid].getHighlight(message);var _this$parseChatMessag=
+var isHighlighted=(_window$app2=window.app)==null?void 0:(_window$app2$rooms=_window$app2.rooms)==null?void 0:_window$app2$rooms[_battle.roomid].getHighlight(message);var _this$parseChatMessag=
 this.parseChatMessage(message,name,'',isHighlighted);divClass=_this$parseChatMessag[0];divHTML=_this$parseChatMessag[1];noNotify=_this$parseChatMessag[2];
 if(!noNotify&&isHighlighted){
-var notifyTitle="Mentioned by "+name+" in "+battle.roomid;
-app.rooms[battle.roomid].notifyOnce(notifyTitle,"\""+message+"\"",'highlight');
+var notifyTitle="Mentioned by "+name+" in "+_battle.roomid;
+app.rooms[_battle.roomid].notifyOnce(notifyTitle,"\""+message+"\"",'highlight');
 }
 break;
 
 case'join':case'j':case'leave':case'l':{
 var user=BattleTextParser.parseNameParts(args[1]);
-if(battle!=null&&battle.ignoreSpects&&' +'.includes(user.group))return;
+if(_battle!=null&&_battle.ignoreSpects&&' +'.includes(user.group))return;
 var formattedUser=user.group+user.name;
 var isJoin=args[0].charAt(0)==='j';
 if(!this.joinLeave){
@@ -223,7 +254,7 @@ break;
 case'notify':
 var title=args[1];
 var body=args[2];
-var roomid=(_this$scene2=this.scene)==null?void 0:_this$scene2.battle.roomid;
+var roomid=(_this$scene3=this.scene)==null?void 0:_this$scene3.battle.roomid;
 if(!roomid)break;
 app.rooms[roomid].notifyOnce(title,body,'highlight');
 break;
@@ -711,7 +742,7 @@ return str;
 
 
 
-initSanitizeHTML=function initSanitizeHTML(){var _this2=this;
+initSanitizeHTML=function initSanitizeHTML(){var _this3=this;
 if(this.tagPolicy)return;
 if(!('html4'in window)){
 throw new Error('sanitizeHTML requires caja');
@@ -841,7 +872,7 @@ attribs:[
 }else if(tagName==='username'){
 
 tagName='strong';
-var color=_this2.usernameColor(toID(getAttrib('name')));
+var color=_this3.usernameColor(toID(getAttrib('name')));
 var style=getAttrib('style');
 setAttrib('style',style+";color:"+color);
 }else if(tagName==='spotify'){var _$exec2;

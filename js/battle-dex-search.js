@@ -1448,8 +1448,8 @@ return itemid==='powerherb';
 if((_moveData$flags2=moveData.flags)!=null&&_moveData$flags2.recharge){
 return false;
 }
-if((_moveData$flags3=moveData.flags)!=null&&_moveData$flags3.slicing){
-return abilityid==='sharpness';
+if((_moveData$flags3=moveData.flags)!=null&&_moveData$flags3.slicing&&abilityid==='sharpness'){
+return true;
 }
 return!BattleMoveSearch.BAD_STRONG_MOVES.includes(id);
 };_proto6.

@@ -1171,14 +1171,14 @@ export class Battle {
 	}
 
 	onResize = () => {
-		var width = $(window).width()!;
+		const width = $(window).width()!;
 		if (width < 950 || this.hardcoreMode) {
 			this.messageShownTime = 500;
 		} else {
 			this.messageShownTime = 1;
 		}
 		if (width && width < 640) {
-			var scale = (width / 640);
+			const scale = (width / 640);
 			this.scene.$frame?.css('transform', 'scale(' + scale + ')');
 			this.scene.$frame?.css('transform-origin', 'top left');
 			// this.$foeHint.css('transform', 'scale(' + scale + ')');
@@ -3749,13 +3749,19 @@ export class Battle {
 		this.subscription?.('playing');
 	}
 	skipTurn() {
-		this.seekTurn(this.turn + 1);
+		this.seekBy(1);
+	}
+	seekBy(deltaTurn: number) {
+		if (this.seeking === Infinity && deltaTurn < 0) {
+			return this.seekTurn(this.turn + 1);
+		}
+		this.seekTurn((this.seeking ?? this.turn) + deltaTurn);
 	}
 	seekTurn(turn: number, forceReset?: boolean) {
 		if (isNaN(turn)) return;
 		turn = Math.max(Math.floor(turn), 0);
 
-		if (this.seeking !== null && this.seeking > turn && !forceReset) {
+		if (this.seeking !== null && turn > this.turn && !forceReset) {
 			this.seeking = turn;
 			return;
 		}
@@ -3794,9 +3800,11 @@ export class Battle {
 	nextStep() {
 		if (!this.shouldStep()) return;
 
+		let time = Date.now();
 		this.scene.startAnimations();
 		let animations = undefined;
 
+		let interruptionCount: number;
 		do {
 			this.waitForAnimations = true;
 			if (this.currentStep >= this.stepQueue.length) {
@@ -3817,6 +3825,16 @@ export class Battle {
 			} else if (this.waitForAnimations === 'simult') {
 				this.scene.timeOffset = 0;
 			}
+
+			if (Date.now() - time > 300) {
+				interruptionCount = this.scene.interruptionCount;
+				setTimeout(() => {
+					if (interruptionCount === this.scene.interruptionCount) {
+						this.nextStep();
+					}
+				}, 1);
+				return;
+			}
 		} while (!animations && this.shouldStep());
 
 		if (this.paused && this.turn >= 0 && this.seeking === null) {
@@ -3827,7 +3845,7 @@ export class Battle {
 
 		if (!animations) return;
 
-		const interruptionCount = this.scene.interruptionCount;
+		interruptionCount = this.scene.interruptionCount;
 		animations.done(() => {
 			if (interruptionCount === this.scene.interruptionCount) {
 				this.nextStep();

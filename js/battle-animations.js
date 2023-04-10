@@ -204,6 +204,7 @@ this.resetSides(true);
 
 animationOff=function animationOff(){
 this.$battle.append('<div class="seeking"><strong>seeking...</strong></div>');
+this.$frame.find('div.playbutton').remove();
 this.stopAnimation();
 
 this.animating=false;
@@ -235,10 +236,8 @@ this.resetSideConditions();
 pause=function pause(){var _this=this;
 this.stopAnimation();
 this.updateBgm();
-if(this.battle.turn>0){
-this.$frame.append('<div class="playbutton"><button name="play"><i class="fa fa-play icon-play"></i> Resume</button></div>');
-}else{
-this.$frame.append('<div class="playbutton"><button name="play"><i class="fa fa-play"></i> Play</button><br /><br /><button name="play-muted" class="startsoundchooser" style="font-size:10pt;display:none">Play (music off)</button></div>');
+if(!this.battle.started){
+this.$frame.append('<div class="playbutton"><button name="play" class="button"><i class="fa fa-play"></i> Play</button><br /><br /><button name="play-muted" class="startsoundchooser button" style="font-size:10pt">Play (music off)</button></div>');
 this.$frame.find('div.playbutton button[name=play-muted]').click(function(){
 _this.setMute(true);
 _this.battle.play();
