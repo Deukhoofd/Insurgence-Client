@@ -22,90 +22,90 @@
 var BattleNatures={
 Adamant:{
 plus:'atk',
-minus:'spa'},
-
+minus:'spa'
+},
 Bashful:{},
 Bold:{
 plus:'def',
-minus:'atk'},
-
+minus:'atk'
+},
 Brave:{
 plus:'atk',
-minus:'spe'},
-
+minus:'spe'
+},
 Calm:{
 plus:'spd',
-minus:'atk'},
-
+minus:'atk'
+},
 Careful:{
 plus:'spd',
-minus:'spa'},
-
+minus:'spa'
+},
 Docile:{},
 Gentle:{
 plus:'spd',
-minus:'def'},
-
+minus:'def'
+},
 Hardy:{},
 Hasty:{
 plus:'spe',
-minus:'def'},
-
+minus:'def'
+},
 Impish:{
 plus:'def',
-minus:'spa'},
-
+minus:'spa'
+},
 Jolly:{
 plus:'spe',
-minus:'spa'},
-
+minus:'spa'
+},
 Lax:{
 plus:'def',
-minus:'spd'},
-
+minus:'spd'
+},
 Lonely:{
 plus:'atk',
-minus:'def'},
-
+minus:'def'
+},
 Mild:{
 plus:'spa',
-minus:'def'},
-
+minus:'def'
+},
 Modest:{
 plus:'spa',
-minus:'atk'},
-
+minus:'atk'
+},
 Naive:{
 plus:'spe',
-minus:'spd'},
-
+minus:'spd'
+},
 Naughty:{
 plus:'atk',
-minus:'spd'},
-
+minus:'spd'
+},
 Quiet:{
 plus:'spa',
-minus:'spe'},
-
+minus:'spe'
+},
 Quirky:{},
 Rash:{
 plus:'spa',
-minus:'spd'},
-
+minus:'spd'
+},
 Relaxed:{
 plus:'def',
-minus:'spe'},
-
+minus:'spe'
+},
 Sassy:{
 plus:'spd',
-minus:'spe'},
-
+minus:'spe'
+},
 Serious:{},
 Timid:{
 plus:'spe',
-minus:'atk'}};
-
-
+minus:'atk'
+}
+};
 var BattleStatIDs={
 HP:'hp',
 hp:'hp',
@@ -125,8 +125,8 @@ SpDef:'spd',
 spd:'spd',
 Spe:'spe',
 Spd:'spe',
-spe:'spe'};
-
+spe:'spe'
+};
 
 var BattleStatNames={
 hp:'HP',
@@ -134,8 +134,8 @@ atk:'Atk',
 def:'Def',
 spa:'SpA',
 spd:'SpD',
-spe:'Spe'};
-
+spe:'Spe'
+};
 
 var BattleBaseSpeciesChart=[
 "unown","burmy","shellos","gastrodon","deerling","sawsbuck","vivillon","flabebe","floette","florges","furfrou","minior","alcremie","tatsugiri","pokestarufo","pokestarbrycenman","pokestarmt","pokestarmt2","pokestartransport","pokestargiant","pokestarhumanoid","pokestarmonster","pokestarf00","pokestarf002","pokestarspirit","pokestarblackdoor","pokestarwhitedoor","pokestarblackbelt","snorlaxdelta","mukdelta","mew"];
@@ -387,6 +387,7 @@ dialgaorigin:1020+237,
 palkiaorigin:1020+238,
 basculinwhitestriped:1020+239,
 
+greninjabond:658,
 gumshoostotem:735,
 raticatealolatotem:1020+120,
 marowakalolatotem:1020+136,
@@ -521,6 +522,7 @@ chromera:1452+31,
 venomicon:1452+32,
 venomiconepilogue:1452+33,
 saharaja:1452+34,
+hemogoblin:1452+35,
 
 syclar:1488+0,
 embirch:1488+1,
@@ -864,8 +866,8 @@ ivysaurdeltaf:1788+19,
 venusaurdeltaf:1788+20,
 deinodeltaf:1788+21,
 zweilousdeltaf:1788+22,
-hydreigondeltaf:1788+23};
-
+hydreigondeltaf:1788+23
+};
 
 var BattlePokemonIconIndexesLeft={
 pikachubelle:1344+0,
@@ -942,6 +944,7 @@ kyurem:1344+70,
 keldeoresolute:1344+71,
 meloetta:1344+72,
 greninja:1344+73,
+greninjabond:1344+73,
 greninjaash:1344+74,
 furfroudebutante:1344+75,
 barbaracle:1344+76,
@@ -973,8 +976,8 @@ necrozmaduskmane:1344+101,
 necrozmadawnwings:1344+102,
 necrozmaultra:1344+103,
 stakataka:1344+104,
-blacephalon:1344+105};
-
+blacephalon:1344+105
+};
 
 var BattleAvatarNumbers={
 1:'lucas',
@@ -1288,8 +1291,8 @@ breederf:'pokemonbreederf',
 1002:'#1002',
 1003:'#1003',
 1005:'#1005',
-1010:'#1010'};var
-
+1010:'#1010'
+};var
 
 
 
@@ -1736,6 +1739,7 @@ var baseId=toID(this.baseSpecies);
 this.formeid=baseId===this.id?'':'-'+toID(this.forme);
 this.spriteid=baseId+this.formeid;
 if(this.spriteid.slice(-5)==='totem')this.spriteid=this.spriteid.slice(0,-5);
+if(this.spriteid==='greninja-bond')this.spriteid='greninja';
 if(this.spriteid.slice(-1)==='-')this.spriteid=this.spriteid.slice(0,-1);
 this.baseForme=data.baseForme||'';
 

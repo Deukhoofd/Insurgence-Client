@@ -139,8 +139,8 @@ return'r';
 getHPColorClass=function getHPColorClass(){
 switch(this.getHPColor()){
 case'y':return'hpbar hpbar-yellow';
-case'r':return'hpbar hpbar-red';}
-
+case'r':return'hpbar hpbar-red';
+}
 return'hpbar';
 };Pokemon.
 getPixelRange=function getPixelRange(pixels,color){
@@ -343,8 +343,8 @@ if(this.volatiles.transform){
 if(!recursionSource)recursionSource=this.ident;
 this.volatiles.transform[1].rememberMove(moveName,0,recursionSource);
 moveName='*'+moveName;
-}for(var _i=0,_this$moveTrack=
-this.moveTrack;_i<_this$moveTrack.length;_i++){var entry=_this$moveTrack[_i];
+}for(var _i2=0,_this$moveTrack2=
+this.moveTrack;_i2<_this$moveTrack2.length;_i2++){var entry=_this$moveTrack2[_i2];
 if(moveName===entry[0]){
 entry[1]+=pp;
 if(entry[1]<0)entry[1]=0;
@@ -369,8 +369,8 @@ spd:'SpD',
 spe:'Spe',
 accuracy:'Accuracy',
 evasion:'Evasion',
-spc:'Spc'};
-
+spc:'Spc'
+};
 if(!this.boosts[boostStat]){
 return'1&times;&nbsp;'+boostStatTable[boostStat];
 }
@@ -439,13 +439,13 @@ this.volatiles=pokemon.volatiles;
 
 if(!copySource){
 var volatilesToRemove=[
-'airballoon','attract','autotomize','disable','encore','foresight','gmaxchistrike','imprison','laserfocus','mimic','miracleeye','nightmare','saltcure','smackdown','stockpile1','stockpile2','stockpile3','torment','typeadd','typechange','yawn'];for(var _i2=0,_Dex$statNamesExceptH=
+'airballoon','attract','autotomize','disable','encore','foresight','gmaxchistrike','imprison','laserfocus','mimic','miracleeye','nightmare','saltcure','smackdown','stockpile1','stockpile2','stockpile3','torment','typeadd','typechange','yawn'];for(var _i4=0,_Dex$statNamesExceptH2=
 
-Dex.statNamesExceptHP;_i2<_Dex$statNamesExceptH.length;_i2++){var statName=_Dex$statNamesExceptH[_i2];
+Dex.statNamesExceptHP;_i4<_Dex$statNamesExceptH2.length;_i4++){var statName=_Dex$statNamesExceptH2[_i4];
 volatilesToRemove.push('protosynthesis'+statName);
 volatilesToRemove.push('quarkdrive'+statName);
-}for(var _i3=0;_i3<
-volatilesToRemove.length;_i3++){var volatile=volatilesToRemove[_i3];
+}for(var _i6=0;_i6<
+volatilesToRemove.length;_i6++){var volatile=volatilesToRemove[_i6];
 delete this.volatiles[volatile];
 }
 }
@@ -522,8 +522,8 @@ return!this.getTypeList(serverPokemon).includes('Flying');
 effectiveAbility=function effectiveAbility(serverPokemon){
 if(this.fainted||this.volatiles['gastroacid'])return'';
 var ability=this.side.battle.dex.abilities.get(
-(serverPokemon==null?void 0:serverPokemon.ability)||this.ability||(serverPokemon==null?void 0:serverPokemon.baseAbility)||'');
-
+(serverPokemon==null?void 0:serverPokemon.ability)||this.ability||(serverPokemon==null?void 0:serverPokemon.baseAbility)||''
+);
 if(this.side.battle.ngasActive()&&!ability.isPermanent){
 return'';
 }
@@ -645,10 +645,10 @@ behind=function behind(offset){
 return this.z+(!this.isFar?-1:1)*offset;
 };_proto2.
 
-clearPokemon=function clearPokemon(){for(var _i4=0,_this$pokemon=
-this.pokemon;_i4<_this$pokemon.length;_i4++){var _pokemon=_this$pokemon[_i4];_pokemon.destroy();}
+clearPokemon=function clearPokemon(){for(var _i8=0,_this$pokemon2=
+this.pokemon;_i8<_this$pokemon2.length;_i8++){var _pokemon=_this$pokemon2[_i8];_pokemon.destroy();}
 this.pokemon=[];
-for(var i=0;i<this.active.length;i++){this.active[i]=null;}
+for(var i=0;i<this.active.length;i++)this.active[i]=null;
 this.lastPokemon=null;
 };_proto2.
 reset=function reset(){
@@ -727,8 +727,8 @@ this.sideConditions[condition]=['Sea of Fire',1,4,0];
 break;
 default:
 this.sideConditions[condition]=[effect.name,1,0,0];
-break;}
-
+break;
+}
 this.battle.scene.addSideCondition(this.n,condition);
 };_proto2.
 removeSideCondition=function removeSideCondition(condition){
@@ -794,8 +794,8 @@ existingTable[poke1UnMegaSearchId]=poke1i;
 if(toRemove>=0){
 if(this.pokemon[toRemove].fainted){
 
-var illusionFound=null;for(var _i5=0,_this$pokemon2=
-this.pokemon;_i5<_this$pokemon2.length;_i5++){var curPoke=_this$pokemon2[_i5];
+var illusionFound=null;for(var _i10=0,_this$pokemon4=
+this.pokemon;_i10<_this$pokemon4.length;_i10++){var curPoke=_this$pokemon4[_i10];
 if(curPoke===poke)continue;
 if(curPoke.fainted)continue;
 if(this.active.indexOf(curPoke)>=0)continue;
@@ -804,12 +804,12 @@ illusionFound=curPoke;
 break;
 }
 }
-if(!illusionFound){for(var _i6=0,_this$pokemon3=
+if(!illusionFound){for(var _i12=0,_this$pokemon6=
 
 
 
 
-this.pokemon;_i6<_this$pokemon3.length;_i6++){var _curPoke=_this$pokemon3[_i6];
+this.pokemon;_i12<_this$pokemon6.length;_i12++){var _curPoke=_this$pokemon6[_i12];
 if(_curPoke===poke)continue;
 if(_curPoke.fainted)continue;
 if(this.active.indexOf(_curPoke)>=0)continue;
@@ -1205,8 +1205,8 @@ addPseudoWeather=function addPseudoWeather(weather,minTimeLeft,timeLeft){
 this.pseudoWeather.push([weather,minTimeLeft,timeLeft]);
 this.scene.updateWeather();
 };_proto3.
-hasPseudoWeather=function hasPseudoWeather(weather){for(var _i7=0,_this$pseudoWeather=
-this.pseudoWeather;_i7<_this$pseudoWeather.length;_i7++){var _ref=_this$pseudoWeather[_i7];var pseudoWeatherName=_ref[0];
+hasPseudoWeather=function hasPseudoWeather(weather){for(var _i14=0,_this$pseudoWeather2=
+this.pseudoWeather;_i14<_this$pseudoWeather2.length;_i14++){var _ref=_this$pseudoWeather2[_i14];var pseudoWeatherName=_ref[0];
 if(weather===pseudoWeatherName){
 return true;
 }
@@ -1217,8 +1217,8 @@ getAllActive=function getAllActive(){
 var pokemonList=[];
 
 for(var i=0;i<2;i++){
-var side=this.sides[i];for(var _i8=0,_side$active=
-side.active;_i8<_side$active.length;_i8++){var active=_side$active[_i8];
+var side=this.sides[i];for(var _i16=0,_side$active2=
+side.active;_i16<_side$active2.length;_i16++){var active=_side$active2[_i16];
 if(active&&!active.fainted){
 pokemonList.push(active);
 }
@@ -1226,8 +1226,8 @@ pokemonList.push(active);
 }
 return pokemonList;
 };_proto3.
-ngasActive=function ngasActive(){for(var _i9=0,_this$getAllActive=
-this.getAllActive();_i9<_this$getAllActive.length;_i9++){var active=_this$getAllActive[_i9];
+ngasActive=function ngasActive(){for(var _i18=0,_this$getAllActive2=
+this.getAllActive();_i18<_this$getAllActive2.length;_i18++){var active=_this$getAllActive2[_i18];
 if(active.ability==='Neutralizing Gas'&&!active.volatiles['gastroacid']){
 return true;
 }
@@ -1239,8 +1239,8 @@ if(typeof abilities==='string')abilities=[abilities];
 if(this.ngasActive()){
 abilities=abilities.filter(function(a){return _this2.dex.abilities.get(a).isPermanent;});
 if(!abilities.length)return false;
-}for(var _i10=0,_this$getAllActive2=
-this.getAllActive();_i10<_this$getAllActive2.length;_i10++){var active=_this$getAllActive2[_i10];
+}for(var _i20=0,_this$getAllActive4=
+this.getAllActive();_i20<_this$getAllActive4.length;_i20++){var active=_this$getAllActive4[_i20];
 if(abilities.includes(active.ability)&&!active.volatiles['gastroacid']){
 return true;
 }
@@ -1263,9 +1263,9 @@ this.weather='';
 this.weatherTimeLeft=0;
 this.weatherMinTimeLeft=0;
 this.pseudoWeather=[];
-this.lastMove='';for(var _i11=0,_this$sides=
+this.lastMove='';for(var _i22=0,_this$sides2=
 
-this.sides;_i11<_this$sides.length;_i11++){var side=_this$sides[_i11];
+this.sides;_i22<_this$sides2.length;_i22++){var side=_this$sides2[_i22];
 if(side)side.reset();
 }
 this.myPokemon=null;
@@ -1430,8 +1430,8 @@ if(this.gameType==='freeforall'){
 return;
 }else{
 var side1=this.sides[0];
-var side2=this.sides[1];for(var _i12=0;_i12<
-sideConditions.length;_i12++){var _id3=sideConditions[_i12];
+var side2=this.sides[1];for(var _i24=0;_i24<
+sideConditions.length;_i24++){var _id3=sideConditions[_i24];
 if(side1.sideConditions[_id3]&&side2.sideConditions[_id3]){var _ref2=
 [
 side2.sideConditions[_id3],side1.sideConditions[_id3]];side1.sideConditions[_id3]=_ref2[0];side2.sideConditions[_id3]=_ref2[1];
@@ -1450,19 +1450,19 @@ side2.removeSideCondition(_id3);
 }
 }
 };_proto3.
-updateTurnCounters=function updateTurnCounters(){for(var _i13=0,_this$pseudoWeather2=
-this.pseudoWeather;_i13<_this$pseudoWeather2.length;_i13++){var pWeather=_this$pseudoWeather2[_i13];
+updateTurnCounters=function updateTurnCounters(){for(var _i26=0,_this$pseudoWeather4=
+this.pseudoWeather;_i26<_this$pseudoWeather4.length;_i26++){var pWeather=_this$pseudoWeather4[_i26];
 if(pWeather[1])pWeather[1]--;
 if(pWeather[2])pWeather[2]--;
-}for(var _i14=0,_this$sides2=
-this.sides;_i14<_this$sides2.length;_i14++){var side=_this$sides2[_i14];
+}for(var _i28=0,_this$sides4=
+this.sides;_i28<_this$sides4.length;_i28++){var side=_this$sides4[_i28];
 for(var _id4 in side.sideConditions){
 var cond=side.sideConditions[_id4];
 if(cond[2])cond[2]--;
 if(cond[3])cond[3]--;
 }
-}for(var _i15=0,_ref3=[].concat(
-this.nearSide.active,this.farSide.active);_i15<_ref3.length;_i15++){var poke=_ref3[_i15];
+}for(var _i30=0,_ref4=[].concat(
+this.nearSide.active,this.farSide.active);_i30<_ref4.length;_i30++){var poke=_ref4[_i30];
 if(poke){
 if(poke.status==='tox')poke.statusData.toxicTurns++;
 poke.clearTurnstatuses();
@@ -1514,8 +1514,8 @@ if(
 {
 
 foeTargets.push(pokemon.side.foe.active[0]);
-}else if(['all','allAdjacent','allAdjacentFoes','foeSide'].includes(moveTarget)){for(var _i16=0,_this$getAllActive3=
-this.getAllActive();_i16<_this$getAllActive3.length;_i16++){var active=_this$getAllActive3[_i16];
+}else if(['all','allAdjacent','allAdjacentFoes','foeSide'].includes(moveTarget)){for(var _i32=0,_this$getAllActive6=
+this.getAllActive();_i32<_this$getAllActive6.length;_i32++){var active=_this$getAllActive6[_i32];
 if(active===pokemon)continue;
 
 if(this.gen<=4||active.side!==pokemon.side&&active.side.ally!==pokemon.side){
@@ -1524,9 +1524,9 @@ foeTargets.push(active);
 }
 }else if(target&&target.side!==pokemon.side){
 foeTargets.push(target);
-}for(var _i17=0;_i17<
+}for(var _i34=0;_i34<
 
-foeTargets.length;_i17++){var foe=foeTargets[_i17];
+foeTargets.length;_i34++){var foe=foeTargets[_i34];
 if(foe&&!foe.fainted&&foe.effectiveAbility()==='Pressure'){
 pp+=1;
 }
@@ -1572,8 +1572,8 @@ var targets=[pokemon];
 if(kwArgs.spread==='.'){
 
 targets.push(target.side.missedPokemon);
-}else{for(var _i18=0,_kwArgs$spread$split=
-kwArgs.spread.split(',');_i18<_kwArgs$spread$split.length;_i18++){var hitTarget=_kwArgs$spread$split[_i18];
+}else{for(var _i36=0,_kwArgs$spread$split2=
+kwArgs.spread.split(',');_i36<_kwArgs$spread$split2.length;_i36++){var hitTarget=_kwArgs$spread$split2[_i36];
 var curTarget=this.getPokemon(hitTarget+': ?');
 if(!curTarget){
 this.log(['error',"Invalid spread move target: \""+hitTarget+"\""]);
@@ -1625,8 +1625,8 @@ pokemon.removeTurnstatus('focuspunch');
 break;
 case'attract':
 this.scene.resultAnim(pokemon,'Immobilized','neutral');
-break;}
-
+break;
+}
 this.scene.animReset(pokemon);
 };_proto3.
 
@@ -1720,8 +1720,8 @@ break;
 case'bind':
 case'wrap':
 this.scene.runOtherAnim('bound',[poke]);
-break;}
-
+break;
+}
 }else{
 if(this.dex.moves.get(this.lastMove).category!=='Status'){
 poke.timesAttacked++;
@@ -1757,8 +1757,8 @@ _poke.item=_effect.name;
 }
 }
 switch(_effect.id){
-case'lunardance':for(var _i19=0,_poke$moveTrack=
-_poke.moveTrack;_i19<_poke$moveTrack.length;_i19++){var trackedMove=_poke$moveTrack[_i19];
+case'lunardance':for(var _i38=0,_poke$moveTrack2=
+_poke.moveTrack;_i38<_poke$moveTrack2.length;_i38++){var trackedMove=_poke$moveTrack2[_i38];
 trackedMove[1]=0;
 }
 
@@ -1779,8 +1779,8 @@ var side=this.sides[siden];
 _poke.fainted=false;
 _poke.status='';
 this.scene.updateSidebar(side);
-break;}
-
+break;
+}
 }
 this.scene.runOtherAnim('heal',[_poke]);
 this.scene.healAnim(_poke,Pokemon.getFormattedRange(_range,0,' to '));
@@ -1869,8 +1869,8 @@ break;
 case'-swapboost':{
 var _poke5=this.getPokemon(args[1]);
 var poke2=this.getPokemon(args[2]);
-var stats=args[3]?args[3].split(', '):['atk','def','spa','spd','spe','accuracy','evasion'];for(var _i20=0;_i20<
-stats.length;_i20++){var _stat4=stats[_i20];
+var stats=args[3]?args[3].split(', '):['atk','def','spa','spd','spe','accuracy','evasion'];for(var _i40=0;_i40<
+stats.length;_i40++){var _stat4=stats[_i40];
 var tmp=_poke5.boosts[_stat4];
 _poke5.boosts[_stat4]=poke2.boosts[_stat4];
 if(!_poke5.boosts[_stat4])delete _poke5.boosts[_stat4];
@@ -1897,8 +1897,8 @@ switch(_effect4.id){
 case'spectralthief':
 
 this.scene.runOtherAnim('spectralthiefboost',[_ofpoke3,_poke6]);
-break;}
-
+break;
+}
 }
 this.log(args,kwArgs);
 break;
@@ -1920,14 +1920,14 @@ if(!kwArgs.silent&&kwArgs.from){
 var _effect5=Dex.getEffect(kwArgs.from);
 this.activateAbility(_poke8,_effect5);
 }
-var _stats=args[3]?args[3].split(', '):['atk','def','spa','spd','spe','accuracy','evasion'];for(var _i21=0;_i21<
-_stats.length;_i21++){var _stat7=_stats[_i21];
+var _stats=args[3]?args[3].split(', '):['atk','def','spa','spd','spe','accuracy','evasion'];for(var _i42=0;_i42<
+_stats.length;_i42++){var _stat7=_stats[_i42];
 _poke8.boosts[_stat7]=frompoke.boosts[_stat7];
 if(!_poke8.boosts[_stat7])delete _poke8.boosts[_stat7];
 }
 if(this.gen>=6){
-var volatilesToCopy=['focusenergy','gmaxchistrike','laserfocus'];for(var _i22=0;_i22<
-volatilesToCopy.length;_i22++){var volatile=volatilesToCopy[_i22];
+var volatilesToCopy=['focusenergy','gmaxchistrike','laserfocus'];for(var _i44=0;_i44<
+volatilesToCopy.length;_i44++){var volatile=volatilesToCopy[_i44];
 if(frompoke.volatiles[volatile]){
 _poke8.addVolatile(volatile);
 }else{
@@ -1964,8 +1964,8 @@ this.log(args,kwArgs);
 break;
 }
 case'-clearallboost':{
-var timeOffset=this.scene.timeOffset;for(var _i23=0,_this$getAllActive4=
-this.getAllActive();_i23<_this$getAllActive4.length;_i23++){var active=_this$getAllActive4[_i23];
+var timeOffset=this.scene.timeOffset;for(var _i46=0,_this$getAllActive8=
+this.getAllActive();_i46<_this$getAllActive8.length;_i46++){var active=_this$getAllActive8[_i46];
 active.boosts={};
 this.scene.timeOffset=timeOffset;
 this.scene.resultAnim(active,'Stats reset','neutral');
@@ -1983,9 +1983,9 @@ break;
 }
 case'-supereffective':{
 var _poke12=this.getPokemon(args[1]);
-if(_poke12){var _window$Config,_window$Config$server;
+if(_poke12){var _window$Config;
 this.scene.resultAnim(_poke12,'Super-effective','bad');
-if((_window$Config=window.Config)!=null&&(_window$Config$server=_window$Config.server)!=null&&_window$Config$server.afd){
+if((_window$Config=window.Config)!=null&&(_window$Config=_window$Config.server)!=null&&_window$Config.afd){
 this.scene.runOtherAnim('hitmark',[_poke12]);
 }
 }
@@ -2054,8 +2054,8 @@ default:
 if(_poke15){
 this.scene.resultAnim(_poke15,'Failed','neutral');
 }
-break;}
-
+break;
+}
 this.scene.animReset(_poke15);
 this.log(args,kwArgs);
 break;
@@ -2091,8 +2091,8 @@ _poke16.item='Protective Pads';
 break;
 case'abilityshield':
 _poke16.item='Ability Shield';
-break;}
-
+break;
+}
 this.log(args,kwArgs);
 break;
 }
@@ -2161,8 +2161,8 @@ this.scene.runStatusAnim('frz',[_poke20]);
 break;
 default:
 this.scene.updateStatbar(_poke20);
-break;}
-
+break;
+}
 this.log(args,kwArgs);
 break;
 }
@@ -2179,8 +2179,8 @@ case'sacredfire':
 case'scald':
 case'steameruption':
 kwArgs.thaw='.';
-break;}
-
+break;
+}
 }
 if(_poke21){
 _poke21.status='';
@@ -2205,16 +2205,16 @@ this.scene.resultAnim(_poke21,'Thawed','good');
 break;
 default:
 _poke21.removeVolatile('confusion');
-this.scene.resultAnim(_poke21,'Cured','good');}
-
+this.scene.resultAnim(_poke21,'Cured','good');
+}
 }
 this.log(args,kwArgs);
 break;
 
 }
 case'-cureteam':{
-var _poke22=this.getPokemon(args[1]);for(var _i24=0,_poke22$side$pokemon=
-_poke22.side.pokemon;_i24<_poke22$side$pokemon.length;_i24++){var _target2=_poke22$side$pokemon[_i24];
+var _poke22=this.getPokemon(args[1]);for(var _i48=0,_poke22$side$pokemon2=
+_poke22.side.pokemon;_i48<_poke22$side$pokemon2.length;_i48++){var _target2=_poke22$side$pokemon2[_i48];
 _target2.status='';
 this.scene.updateStatbarIfExists(_target2);
 }
@@ -2279,14 +2279,14 @@ case'trick':
 _poke23.itemEffect='tricked';
 
 default:
-break;}
-
+break;
+}
 }else{
 switch(item.id){
 case'airballoon':
 this.scene.resultAnim(_poke23,'Balloon','good');
-break;}
-
+break;
+}
 }
 this.log(args,kwArgs);
 break;
@@ -2332,8 +2332,8 @@ _poke24.prevItemEffect='consumed';
 break;
 case'incinerate':
 _poke24.prevItemEffect='incinerated';
-break;}
-
+break;
+}
 }else{
 switch(_item2.id){
 case'airballoon':
@@ -2353,8 +2353,8 @@ _poke24.prevItemEffect='held up';
 break;
 default:
 _poke24.prevItemEffect='consumed';
-break;}
-
+break;
+}
 }
 this.log(args,kwArgs);
 break;
@@ -2396,8 +2396,8 @@ this.activateAbility(_poke25,ability.name);
 break;
 default:
 this.activateAbility(_poke25,ability.name);
-break;}
-
+break;
+}
 }else{
 this.activateAbility(_poke25,ability.name);
 }
@@ -2434,6 +2434,14 @@ _poke27.level=parseInt(level.substr(1),10);
 newSpeciesForme=args[2].substr(0,commaIndex);
 }
 var species=this.dex.species.get(newSpeciesForme);
+if(nextArgs){
+if(nextArgs[0]==='-mega'){
+species=this.dex.species.get(this.dex.items.get(nextArgs[3]).megaStone);
+}else if(nextArgs[0]==='-primal'&&nextArgs.length>2){
+if(nextArgs[2]==='Red Orb')species=this.dex.species.get('Groudon-Primal');
+if(nextArgs[2]==='Blue Orb')species=this.dex.species.get('Kyogre-Primal');
+}
+}
 
 _poke27.speciesForme=newSpeciesForme;
 _poke27.ability=_poke27.baseAbility=species.abilities?species.abilities['0']:'';
@@ -2467,8 +2475,8 @@ var shiny=tpoke.shiny;
 var gender=tpoke.gender;
 var _level=tpoke.level;
 _poke28.addVolatile('transform',_pokemon2,shiny,gender,_level);
-_poke28.addVolatile('formechange',speciesForme);for(var _i25=0,_tpoke$moveTrack=
-tpoke.moveTrack;_i25<_tpoke$moveTrack.length;_i25++){var _trackedMove=_tpoke$moveTrack[_i25];
+_poke28.addVolatile('formechange',speciesForme);for(var _i50=0,_tpoke$moveTrack2=
+tpoke.moveTrack;_i50<_tpoke$moveTrack2.length;_i50++){var _trackedMove=_tpoke$moveTrack2[_i50];
 _poke28.rememberMove(_trackedMove[0],0);
 }
 this.scene.animTransform(_poke28);
@@ -2677,8 +2685,8 @@ this.scene.resultAnim(_poke32,'Light Screen','good');
 break;
 case'reflect':
 this.scene.resultAnim(_poke32,'Reflect','good');
-break;}
-
+break;
+}
 if(!(_effect15.id==='typechange'&&_poke32.terastallized)){
 _poke32.addVolatile(_effect15.id);
 }
@@ -2782,8 +2790,8 @@ this.scene.runOtherAnim('doomdesirehit',[_poke33]);
 if(_effect16.name==='Future Sight'){
 this.scene.runOtherAnim('futuresighthit',[_poke33]);
 }
-}}
-
+}
+}
 }
 this.scene.updateStatbar(_poke33);
 this.log(args,kwArgs);
@@ -2832,8 +2840,8 @@ break;
 case'beakblast':
 this.scene.runOtherAnim('bidecharge',[_poke34]);
 this.scene.resultAnim(_poke34,'Beak Blast','neutral');
-break;}
-
+break;
+}
 this.scene.updateStatbar(_poke34);
 this.log(args,kwArgs);
 break;
@@ -2848,8 +2856,8 @@ this.scene.resultAnim(_poke35,'Grudge','neutral');
 break;
 case'destinybond':
 this.scene.resultAnim(_poke35,'Destiny Bond','neutral');
-break;}
-
+break;
+}
 this.scene.updateStatbar(_poke35);
 this.log(args,kwArgs);
 break;
@@ -2899,8 +2907,8 @@ case'phantomforce':
 case'shadowforce':
 case'feint':
 this.scene.resultAnim(_poke36,'Protection broken','bad');
-_poke36.removeTurnstatus('protect');for(var _i26=0,_poke36$side$pokemon=
-_poke36.side.pokemon;_i26<_poke36$side$pokemon.length;_i26++){var curTarget=_poke36$side$pokemon[_i26];
+_poke36.removeTurnstatus('protect');for(var _i52=0,_poke36$side$pokemon2=
+_poke36.side.pokemon;_i52<_poke36$side$pokemon2.length;_i52++){var curTarget=_poke36$side$pokemon2[_i52];
 curTarget.removeTurnstatus('wideguard');
 curTarget.removeTurnstatus('quickguard');
 curTarget.removeTurnstatus('craftyshield');
@@ -2948,8 +2956,8 @@ case'forewarn':
 if(_target3){
 _target3.rememberMove(kwArgs.move,0);
 }else{
-var foeActive=[];for(var _i27=0,_poke36$side$foe$acti=
-_poke36.side.foe.active;_i27<_poke36$side$foe$acti.length;_i27++){var maybeTarget=_poke36$side$foe$acti[_i27];
+var foeActive=[];for(var _i54=0,_poke36$side$foe$acti2=
+_poke36.side.foe.active;_i54<_poke36$side$foe$acti2.length;_i54++){var maybeTarget=_poke36$side$foe$acti2[_i54];
 if(maybeTarget&&!maybeTarget.fainted)foeActive.push(maybeTarget);
 }
 if(foeActive.length===1){
@@ -2984,8 +2992,8 @@ break;
 default:
 if(kwArgs.broken){
 this.scene.resultAnim(_poke36,'Protection broken','bad');
-}}
-
+}
+}
 this.log(args,kwArgs);
 break;
 }
@@ -3009,8 +3017,8 @@ case'grasspledge':
 case'firepledge':
 case'waterpledge':
 this.scene.updateWeather();
-break;}
-
+break;
+}
 this.log(args,kwArgs);
 break;
 }
@@ -3062,12 +3070,12 @@ this.addPseudoWeather(_effect23.name,minTimeLeft,maxTimeLeft);
 
 switch(_effect23.id){
 case'gravity':
-if(this.seeking!==null)break;for(var _i28=0,_this$getAllActive5=
-this.getAllActive();_i28<_this$getAllActive5.length;_i28++){var _active=_this$getAllActive5[_i28];
+if(this.seeking!==null)break;for(var _i56=0,_this$getAllActive10=
+this.getAllActive();_i56<_this$getAllActive10.length;_i56++){var _active=_this$getAllActive10[_i56];
 this.scene.runOtherAnim('gravity',[_active]);
 }
-break;}
-
+break;
+}
 this.log(args,kwArgs);
 break;
 }
@@ -3083,8 +3091,8 @@ var _effect25=Dex.getEffect(args[1]);
 switch(_effect25.id){
 case'perishsong':
 this.scene.updateStatbars();
-break;}
-
+break;
+}
 this.log(args,kwArgs);
 break;
 }
@@ -3272,8 +3280,8 @@ return this.sides[siden].addPokemon('','',details);
 };_proto3.
 findCorrespondingPokemon=function findCorrespondingPokemon(serverPokemon){
 var _this$parsePokemonId4=this.parsePokemonId(serverPokemon.ident),siden=_this$parsePokemonId4.siden;
-var searchid=serverPokemon.ident+"|"+serverPokemon.details;for(var _i29=0,_this$sides$siden$pok=
-this.sides[siden].pokemon;_i29<_this$sides$siden$pok.length;_i29++){var _pokemon4=_this$sides$siden$pok[_i29];
+var searchid=serverPokemon.ident+"|"+serverPokemon.details;for(var _i58=0,_this$sides$siden$pok2=
+this.sides[siden].pokemon;_i58<_this$sides$siden$pok2.length;_i58++){var _pokemon4=_this$sides$siden$pok2[_i58];
 if(_pokemon4.searchid===searchid){
 return _pokemon4;
 }
@@ -3292,9 +3300,9 @@ var isInactive=slot<0;
 var side=this.sides[siden];
 
 
-if(!isInactive&&side.active[slot])return side.active[slot];for(var _i30=0,_side$pokemon=
+if(!isInactive&&side.active[slot])return side.active[slot];for(var _i60=0,_side$pokemon2=
 
-side.pokemon;_i30<_side$pokemon.length;_i30++){var _pokemon5=_side$pokemon[_i30];
+side.pokemon;_i60<_side$pokemon2.length;_i60++){var _pokemon5=_side$pokemon2[_i60];
 if(isInactive&&side.active.includes(_pokemon5))continue;
 if(_pokemon5.ident===pokemonid){
 if(slot>=0)_pokemon5.slot=slot;
@@ -3315,8 +3323,8 @@ if(this.nearSide.name===sidename)return this.nearSide;
 if(this.farSide.name===sidename)return this.farSide;
 return{
 name:sidename,
-id:sidename.replace(/ /g,'')};
-
+id:sidename.replace(/ /g,'')
+};
 };_proto3.
 
 add=function add(command){
@@ -3408,10 +3416,10 @@ case'rotation':
 this.nearSide.active=[null,null,null];
 this.farSide.active=[null,null,null];
 break;
-default:for(var _i31=0,_this$sides3=
-this.sides;_i31<_this$sides3.length;_i31++){var side=_this$sides3[_i31];side.active=[null];}
-break;}
-
+default:for(var _i62=0,_this$sides6=
+this.sides;_i62<_this$sides6.length;_i62++){var side=_this$sides6[_i62];side.active=[null];}
+break;
+}
 if(!this.pokemonControlled)this.pokemonControlled=this.nearSide.active.length;
 this.scene.updateGen();
 this.scene.resetSides();
@@ -3449,9 +3457,9 @@ return;
 
 this.kickingInactive=parseInt(args[1].slice(9),10)||true;
 return;
-}else if(args[1].slice(-14)===' seconds left.'){var _window$app,_window$app$user;
+}else if(args[1].slice(-14)===' seconds left.'){var _window$app;
 var hasIndex=args[1].indexOf(' has ');
-var userid=(_window$app=window.app)==null?void 0:(_window$app$user=_window$app.user)==null?void 0:_window$app$user.get('userid');
+var userid=(_window$app=window.app)==null||(_window$app=_window$app.user)==null?void 0:_window$app.get('userid');
 if(toID(args[1].slice(0,hasIndex))===userid){
 this.kickingInactive=parseInt(args[1].slice(hasIndex+5),10)||true;
 }
@@ -3502,8 +3510,8 @@ var oldid=args[2];
 if(toUserid(oldid)===app.user.get('userid')){
 app.user.set({
 away:_user2.away,
-status:_user2.status});
-
+status:_user2.status
+});
 }
 var _userid3=toUserid(_user2.name);
 _room2.users[_userid3]=_user2;
@@ -3701,8 +3709,8 @@ this.runMajor(args,kwArgs,preempt);
 }catch(err){var _this$subscription6;
 this.log(['majorerror','Error parsing: '+str+' ('+err+')']);
 if(err.stack){
-var stack=(''+err.stack).split('\n');for(var _i32=0;_i32<
-stack.length;_i32++){var line=stack[_i32];
+var stack=(''+err.stack).split('\n');for(var _i64=0;_i64<
+stack.length;_i64++){var line=stack[_i64];
 if(/\brun\b/.test(line)){
 break;
 }

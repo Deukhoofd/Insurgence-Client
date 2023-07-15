@@ -69,9 +69,9 @@ return true;
 tryWeather=function tryWeather(weatherName){
 if(!this.weatherName)return false;
 if(!weatherName)weatherName=this.weatherName;else
-if(weatherName!==this.weatherName)return false;for(var _i=0,_this$battle$sides=
-this.battle.sides;_i<_this$battle$sides.length;_i++){var side=_this$battle$sides[_i];for(var _i2=0,_side$active=
-side.active;_i2<_side$active.length;_i2++){var active=_side$active[_i2];
+if(weatherName!==this.weatherName)return false;for(var _i2=0,_this$battle$sides2=
+this.battle.sides;_i2<_this$battle$sides2.length;_i2++){var side=_this$battle$sides2[_i2];for(var _i4=0,_side$active2=
+side.active;_i4<_side$active2.length;_i4++){var active=_side$active2[_i4];
 if(active&&['Air Lock','Cloud Nine'].includes(active.ability)){
 this.comment.push(" ("+weatherName+" suppressed by "+active.ability+")");
 return false;
@@ -295,8 +295,8 @@ var _pokemon=side.pokemon[parseInt(args[2],10)];
 if(args[3]==='illusion'){
 buf='';
 var species=_pokemon.getBaseSpecies().baseSpecies;
-var index=1;for(var _i3=0,_side$pokemon=
-side.pokemon;_i3<_side$pokemon.length;_i3++){var otherPokemon=_side$pokemon[_i3];
+var index=1;for(var _i6=0,_side$pokemon2=
+side.pokemon;_i6<_side$pokemon2.length;_i6++){var otherPokemon=_side$pokemon2[_i6];
 if(otherPokemon.getBaseSpecies().baseSpecies===species){
 buf+=this.showPokemonTooltip(otherPokemon,null,false,index);
 index++;
@@ -364,8 +364,8 @@ break;
 default:
 
 Promise.resolve(new Error("unrecognized type"));
-buf="<p class=\"message-error\" style=\"white-space: pre-wrap\">"+new Error("unrecognized type").stack+"</p>";}
-
+buf="<p class=\"message-error\" style=\"white-space: pre-wrap\">"+new Error("unrecognized type").stack+"</p>";
+}
 
 this.placeTooltip(buf,elem,ownHeight,type);
 return true;
@@ -411,8 +411,8 @@ $wrapper.removeClass('tooltip-locked');
 }
 $wrapper.css({
 left:x,
-top:y});
-
+top:y
+});
 innerHTML="<div class=\"tooltipinner\"><div class=\"tooltip tooltip-"+type+"\">"+innerHTML+"</div></div>";
 $wrapper.html(innerHTML).appendTo(document.body);
 BattleTooltips.elem=$wrapper.find('.tooltip')[0];
@@ -469,8 +469,8 @@ var boostText='';
 if(move.zMove.boost){
 var boosts=Object.keys(move.zMove.boost);
 boostText=boosts.map(function(stat){return(
-BattleTextParser.stat(stat)+' +'+move.zMove.boost[stat]);}).
-join(', ');
+BattleTextParser.stat(stat)+' +'+move.zMove.boost[stat]);}
+).join(', ');
 }
 return boostText;
 };_proto2.
@@ -542,6 +542,7 @@ var item=this.battle.dex.items.get(serverPokemon.item);
 
 var value=new ModifiableValue(this.battle,pokemon,serverPokemon);
 var _this$getMoveType=this.getMoveType(move,value,gmaxMove||isZOrMax==='maxmove'),moveType=_this$getMoveType[0],category=_this$getMoveType[1];
+var categoryDiff=move.category!==category;
 
 if(isZOrMax==='zmove'){
 if(item.zMoveFrom===move.name){
@@ -549,8 +550,8 @@ move=this.battle.dex.moves.get(item.zMove);
 }else if(move.category==='Status'){
 move=new Move(move.id,"",Object.assign({},
 move,{
-name:'Z-'+move.name}));
-
+name:'Z-'+move.name})
+);
 zEffect=this.getStatusZMoveEffect(move);
 }else{
 var moveName=BattleTooltips.zMoveTable[item.zMoveType];
@@ -579,14 +580,15 @@ zMove=this.battle.dex.moves.get(BattleTooltips.zMoveTable['Ice']);
 break;
 case'newmoon':
 zMove=this.battle.dex.moves.get(BattleTooltips.zMoveTable['Dark']);
-break;}
-
+break;
+}
 }
 move=new Move(zMove.id,zMove.name,Object.assign({},
 zMove,{
 category:move.category,
-basePower:movePower}));
-
+basePower:movePower})
+);
+categoryDiff=false;
 }
 }else if(isZOrMax==='maxmove'){
 if(move.category==='Status'){
@@ -598,9 +600,17 @@ maxMove.basePower:move.maxMove.basePower;
 move=new Move(maxMove.id,maxMove.name,Object.assign({},
 maxMove,{
 category:move.category,
-basePower:basePower}));
-
+basePower:basePower})
+);
+categoryDiff=false;
 }
+}
+
+if(categoryDiff){
+move=new Move(move.id,move.name,Object.assign({},
+move,{
+category:category})
+);
 }
 
 text+='<h2>'+move.name+'<br />';
@@ -617,8 +627,8 @@ if(category!=='Status'&&foeActive.length>1){
 var prevBasePower=null;
 var _basePower='';
 var difference=false;
-var basePowers=[];for(var _i4=0,_foeActive=
-foeActive;_i4<_foeActive.length;_i4++){var active=_foeActive[_i4];
+var basePowers=[];for(var _i8=0,_foeActive2=
+foeActive;_i8<_foeActive2.length;_i8++){var active=_foeActive2[_i8];
 if(!active)continue;
 value=this.getMoveBasePower(move,moveType,value,active);
 _basePower=''+value;
@@ -857,8 +867,8 @@ var supportsAbilities=this.battle.gen>2&&!this.battle.tier.includes("Let's Go");
 var abilityText='';
 if(supportsAbilities){
 abilityText=this.getPokemonAbilityText(
-clientPokemon,serverPokemon,isActive,!!illusionIndex&&illusionIndex>1);
-
+clientPokemon,serverPokemon,isActive,!!illusionIndex&&illusionIndex>1
+);
 }
 
 var itemText='';
@@ -903,12 +913,12 @@ text+=this.renderStats(clientPokemon,serverPokemon,!isActive);
 if(serverPokemon&&!isActive){
 
 text+="<p class=\"section\">";
-var battlePokemon=clientPokemon||this.battle.findCorrespondingPokemon(pokemon);for(var _i5=0,_serverPokemon$moves=
-serverPokemon.moves;_i5<_serverPokemon$moves.length;_i5++){var _moveid=_serverPokemon$moves[_i5];
+var battlePokemon=clientPokemon||this.battle.findCorrespondingPokemon(pokemon);for(var _i10=0,_serverPokemon$moves2=
+serverPokemon.moves;_i10<_serverPokemon$moves2.length;_i10++){var _moveid=_serverPokemon$moves2[_i10];
 var move=Dex.moves.get(_moveid);
 var moveName="&#8226; "+move.name;
-if(battlePokemon!=null&&battlePokemon.moveTrack){for(var _i6=0,_battlePokemon$moveTr=
-battlePokemon.moveTrack;_i6<_battlePokemon$moveTr.length;_i6++){var row=_battlePokemon$moveTr[_i6];
+if(battlePokemon!=null&&battlePokemon.moveTrack){for(var _i12=0,_battlePokemon$moveTr2=
+battlePokemon.moveTrack;_i12<_battlePokemon$moveTr2.length;_i12++){var row=_battlePokemon$moveTr2[_i12];
 if(moveName===row[0]){
 moveName=this.getPPUseText(row,true);
 break;
@@ -920,8 +930,8 @@ text+=moveName+"<br />";
 text+='</p>';
 }else if(!this.battle.hardcoreMode&&clientPokemon!=null&&clientPokemon.moveTrack.length){
 
-text+="<p class=\"section\">";for(var _i7=0,_clientPokemon$moveTr=
-clientPokemon.moveTrack;_i7<_clientPokemon$moveTr.length;_i7++){var _row=_clientPokemon$moveTr[_i7];
+text+="<p class=\"section\">";for(var _i14=0,_clientPokemon$moveTr2=
+clientPokemon.moveTrack;_i14<_clientPokemon$moveTr2.length;_i14++){var _row=_clientPokemon$moveTr2[_i14];
 text+=this.getPPUseText(_row)+"<br />";
 }
 if(clientPokemon.moveTrack.filter(function(_ref){var moveName=_ref[0];
@@ -946,8 +956,8 @@ showFieldTooltip=function showFieldTooltip(){
 var scene=this.battle.scene;
 var buf="<table style=\"border: 0; border-collapse: collapse; vertical-align: top; padding: 0; width: 100%\"><tr>";
 
-var atLeastOne=false;for(var _i8=0,_this$battle$sides2=
-this.battle.sides;_i8<_this$battle$sides2.length;_i8++){var side=_this$battle$sides2[_i8];
+var atLeastOne=false;for(var _i16=0,_this$battle$sides4=
+this.battle.sides;_i16<_this$battle$sides4.length;_i16++){var side=_this$battle$sides4[_i16];
 var sideConditions=scene.sideConditionsLeft(side,true);
 if(sideConditions)atLeastOne=true;
 buf+="<td><p class=\"section\"><strong>"+BattleLog.escapeHTML(side.name)+"</strong>"+(sideConditions||"<br />(no conditions)")+"</p></td>";
@@ -970,8 +980,8 @@ return"<p>"+buf+"</p>";
 
 pokemonHasClones=function pokemonHasClones(pokemon){
 var side=pokemon.side;
-if(side.battle.speciesClause)return false;for(var _i9=0,_side$pokemon2=
-side.pokemon;_i9<_side$pokemon2.length;_i9++){var ally=_side$pokemon2[_i9];
+if(side.battle.speciesClause)return false;for(var _i18=0,_side$pokemon4=
+side.pokemon;_i18<_side$pokemon4.length;_i18++){var ally=_side$pokemon4[_i18];
 if(pokemon!==ally&&pokemon.searchid===ally.searchid){
 return true;
 }
@@ -979,11 +989,11 @@ return true;
 return false;
 };_proto2.
 
-calculateModifiedStats=function calculateModifiedStats(clientPokemon,serverPokemon){var _clientPokemon$effect,_clientPokemon$volati,_this$battle$dex$spec,_this4=this;
+calculateModifiedStats=function calculateModifiedStats(clientPokemon,serverPokemon,statStagesOnly){var _clientPokemon$effect,_clientPokemon$volati,_this$battle$dex$spec,_this4=this;
 var stats=Object.assign({},serverPokemon.stats);
 var pokemon=clientPokemon||serverPokemon;
-var isPowerTrick=clientPokemon==null?void 0:clientPokemon.volatiles['powertrick'];for(var _i10=0,_Dex$statNamesExceptH=
-Dex.statNamesExceptHP;_i10<_Dex$statNamesExceptH.length;_i10++){var statName=_Dex$statNamesExceptH[_i10];
+var isPowerTrick=clientPokemon==null?void 0:clientPokemon.volatiles['powertrick'];for(var _i20=0,_Dex$statNamesExceptH2=
+Dex.statNamesExceptHP;_i20<_Dex$statNamesExceptH2.length;_i20++){var statName=_Dex$statNamesExceptH2[_i20];
 var sourceStatName=statName;
 if(isPowerTrick){
 if(statName==='atk')sourceStatName='def';
@@ -1005,10 +1015,11 @@ stats[statName]/=boostTable[-boostLevel];
 stats[statName]=Math.floor(stats[statName]);
 }
 }
+if(statStagesOnly)return stats;
 
 var ability=toID((_clientPokemon$effect=
-clientPokemon==null?void 0:clientPokemon.effectiveAbility(serverPokemon))!=null?_clientPokemon$effect:serverPokemon.ability||serverPokemon.baseAbility);
-
+clientPokemon==null?void 0:clientPokemon.effectiveAbility(serverPokemon))!=null?_clientPokemon$effect:serverPokemon.ability||serverPokemon.baseAbility
+);
 
 
 if(pokemon.status){
@@ -1024,8 +1035,8 @@ stats.spe=Math.floor(stats.spe*1.5);
 }
 
 
-if(this.battle.gen<=1){for(var _i11=0,_Dex$statNamesExceptH2=
-Dex.statNamesExceptHP;_i11<_Dex$statNamesExceptH2.length;_i11++){var _statName=_Dex$statNamesExceptH2[_i11];
+if(this.battle.gen<=1){for(var _i22=0,_Dex$statNamesExceptH4=
+Dex.statNamesExceptHP;_i22<_Dex$statNamesExceptH4.length;_i22++){var _statName=_Dex$statNamesExceptH4[_i22];
 if(stats[_statName]>999)stats[_statName]=999;
 }
 return stats;
@@ -1126,8 +1137,8 @@ if(ability==='orichalcumpulse'){
 stats.atk=Math.floor(stats.atk*1.3);
 }
 var allyActive=clientPokemon==null?void 0:clientPokemon.side.active;
-if(allyActive){for(var _i12=0;_i12<
-allyActive.length;_i12++){var ally=allyActive[_i12];
+if(allyActive){for(var _i24=0;_i24<
+allyActive.length;_i24++){var ally=allyActive[_i24];
 if(!ally||ally.fainted)continue;
 var allyAbility=this.getAllyAbility(ally);
 if(allyAbility==='Flower Gift'&&(ally.getSpecies().baseSpecies==='Cherrim'||this.battle.gen<=4)){
@@ -1164,8 +1175,8 @@ speedModifiers.push(0.5);
 }
 if(ability==='unburden'&&clientPokemon.volatiles['itemremoved']&&!item){
 speedModifiers.push(2);
-}for(var _i13=0,_Dex$statNamesExceptH3=
-Dex.statNamesExceptHP;_i13<_Dex$statNamesExceptH3.length;_i13++){var _statName2=_Dex$statNamesExceptH3[_i13];
+}for(var _i26=0,_Dex$statNamesExceptH6=
+Dex.statNamesExceptHP;_i26<_Dex$statNamesExceptH6.length;_i26++){var _statName2=_Dex$statNamesExceptH6[_i26];
 if(clientPokemon.volatiles['protosynthesis'+_statName2]||clientPokemon.volatiles['quarkdrive'+_statName2]){
 if(_statName2==='spe'){
 speedModifiers.push(1.5);
@@ -1216,8 +1227,8 @@ stats.spd=Math.floor(stats.spd*1.5);
 if(clientPokemon&&(ability==='plus'||ability==='minus')){
 var _allyActive=clientPokemon.side.active;
 if(_allyActive.length>1){
-var abilityName=ability==='plus'?'Plus':'Minus';for(var _i14=0;_i14<
-_allyActive.length;_i14++){var _ally=_allyActive[_i14];
+var abilityName=ability==='plus'?'Plus':'Minus';for(var _i28=0;_i28<
+_allyActive.length;_i28++){var _ally=_allyActive[_i28];
 if(!_ally||_ally===clientPokemon||_ally.fainted)continue;
 var _allyAbility=this.getAllyAbility(_ally);
 if(_allyAbility!=='Plus'&&_allyAbility!=='Minus')continue;
@@ -1273,8 +1284,8 @@ if(sideConditions['grasspledge']){
 speedModifiers.push(0.25);
 }
 
-var chainedSpeedModifier=1;for(var _i15=0;_i15<
-speedModifiers.length;_i15++){var modifier=speedModifiers[_i15];
+var chainedSpeedModifier=1;for(var _i30=0;_i30<
+speedModifiers.length;_i30++){var modifier=speedModifiers[_i30];
 chainedSpeedModifier*=modifier;
 }
 
@@ -1305,8 +1316,8 @@ var modifiedStats=this.calculateModifiedStats(clientPokemon,serverPokemon);
 var buf='<p>';
 
 if(!short){
-var hasModifiedStat=false;for(var _i16=0,_Dex$statNamesExceptH4=
-Dex.statNamesExceptHP;_i16<_Dex$statNamesExceptH4.length;_i16++){var statName=_Dex$statNamesExceptH4[_i16];
+var hasModifiedStat=false;for(var _i32=0,_Dex$statNamesExceptH8=
+Dex.statNamesExceptHP;_i32<_Dex$statNamesExceptH8.length;_i32++){var statName=_Dex$statNamesExceptH8[_i32];
 if(this.battle.gen===1&&statName==='spd')continue;
 var statLabel=this.battle.gen===1&&statName==='spa'?'spc':statName;
 buf+=statName==='atk'?'<small>':'<small> / ';
@@ -1320,9 +1331,9 @@ if(!hasModifiedStat)return buf;
 
 buf+='<p><small>(After stat modifiers:)</small></p>';
 buf+='<p>';
-}for(var _i17=0,_Dex$statNamesExceptH5=
+}for(var _i34=0,_Dex$statNamesExceptH10=
 
-Dex.statNamesExceptHP;_i17<_Dex$statNamesExceptH5.length;_i17++){var _statName3=_Dex$statNamesExceptH5[_i17];
+Dex.statNamesExceptHP;_i34<_Dex$statNamesExceptH10.length;_i34++){var _statName3=_Dex$statNamesExceptH10[_i34];
 if(this.battle.gen===1&&_statName3==='spd')continue;
 var _statLabel=this.battle.gen===1&&_statName3==='spa'?'spc':_statName3;
 buf+=_statName3==='atk'?'<small>':'<small> / ';
@@ -1362,8 +1373,8 @@ return bullet+" "+move.name+" <small>("+(maxpp-ppUsed)+"/"+maxpp+")</small>";
 return bullet+" "+move.name+" "+(showKnown?' <small>(revealed)</small>':'');
 };_proto2.
 
-ppUsed=function ppUsed(move,pokemon){for(var _i18=0,_pokemon$moveTrack=
-pokemon.moveTrack;_i18<_pokemon$moveTrack.length;_i18++){var _ref2=_pokemon$moveTrack[_i18];var moveName=_ref2[0];var ppUsed=_ref2[1];
+ppUsed=function ppUsed(move,pokemon){for(var _i36=0,_pokemon$moveTrack2=
+pokemon.moveTrack;_i36<_pokemon$moveTrack2.length;_i36++){var _ref2=_pokemon$moveTrack2[_i36];var moveName=_ref2[0];var ppUsed=_ref2[1];
 if(moveName.charAt(0)==='*')moveName=moveName.substr(1);
 if(move.name===moveName)return ppUsed;
 }
@@ -1464,8 +1475,8 @@ moveType='Ice';
 break;
 case'newmoon':
 moveType='Dark';
-break;}
-
+break;
+}
 }
 if(move.id==='terrainpulse'&&pokemon.isGrounded(serverPokemon)){
 if(this.battle.hasPseudoWeather('Electric Terrain')){
@@ -1497,13 +1508,13 @@ moveType='Fire';
 break;
 case'Tauros-Paldea-Aqua':
 moveType='Water';
-break;}
-
+break;
+}
 }
 
 
 var noTypeOverride=[
-'judgment','multiattack','naturalgift','revelationdance','struggle','technoblast','terablast','terrainpulse','weatherball'];
+'judgment','multiattack','naturalgift','revelationdance','struggle','technoblast','terrainpulse','weatherball'];
 
 var allowTypeOverride=!noTypeOverride.includes(move.id)&&(move.id!=='terablast'||!pokemon.terastallized);
 if(allowTypeOverride){
@@ -1540,8 +1551,10 @@ moveType='Water';
 }
 }
 
-if(this.battle.gen<=3&&category!=='Status'){
-category=Dex.getGen3Category(moveType);
+if(move.id==='photongeyser'||move.id==='lightthatburnsthesky'||
+move.id==='terablast'&&pokemon.terastallized){
+var stats=this.calculateModifiedStats(pokemon,serverPokemon,true);
+if(stats.atk>stats.spa)category='Physical';
 }
 if(value.abilityModify(0,'Spectral Jaws'))category='Special';
 return[moveType,category];
@@ -1561,7 +1574,7 @@ if(move.id==='blizzard'&&this.battle.gen>=4){
 value.weatherModify(0,'Hail');
 value.weatherModify(0,'Snow');
 }
-if(move.id==='hurricane'||move.id==='thunder'){
+if(['hurricane','thunder','bleakwindstorm','wildboltstorm','sandsearstorm'].includes(move.id)){
 value.weatherModify(0,'Rain Dance');
 value.weatherModify(0,'Primordial Sea');
 }
@@ -1599,9 +1612,9 @@ var accuracyModifiers=[];
 if(this.battle.hasPseudoWeather('Gravity')){
 accuracyModifiers.push(6840);
 value.modify(5/3,"Gravity");
-}for(var _i19=0,_pokemon$side$active=
+}for(var _i38=0,_pokemon$side$active2=
 
-pokemon.side.active;_i19<_pokemon$side$active.length;_i19++){var active=_pokemon$side$active[_i19];
+pokemon.side.active;_i38<_pokemon$side$active2.length;_i38++){var active=_pokemon$side$active2[_i38];
 if(!active||active.fainted)continue;
 var ability=this.getAllyAbility(active);
 if(ability==='Victory Star'){
@@ -1624,8 +1637,8 @@ value.itemModify(1.1,"Wide Lens");
 }
 
 
-var chain=4096;for(var _i20=0;_i20<
-accuracyModifiers.length;_i20++){var mod=accuracyModifiers[_i20];
+var chain=4096;for(var _i40=0;_i40<
+accuracyModifiers.length;_i40++){var mod=accuracyModifiers[_i40];
 if(mod!==4096){
 chain=chain*mod+2048>>12;
 }
@@ -1680,8 +1693,8 @@ value.modify(2,"Acrobatics + no item");
 if(['crushgrip','wringout'].includes(move.id)&&target){
 value.set(
 Math.floor(Math.floor((120*(100*Math.floor(target.hp*4096/target.maxhp))+2048-1)/4096)/100)||1,
-'approximate');
-
+'approximate'
+);
 }
 if(move.id==='brine'&&target&&target.hp*2<=target.maxhp){
 value.modify(2,'Brine + target below half HP');
@@ -1719,8 +1732,8 @@ if(move.id==='lastrespects'){
 value.set(Math.min(50+50*pokemon.side.faintCounter));
 }
 if(move.id==='punishment'&&target){
-var boostCount=0;for(var _i21=0,_Object$values=
-Object.values(target.boosts);_i21<_Object$values.length;_i21++){var boost=_Object$values[_i21];
+var boostCount=0;for(var _i42=0,_Object$values2=
+Object.values(target.boosts);_i42<_Object$values2.length;_i42++){var boost=_Object$values2[_i42];
 if(boost>0)boostCount+=boost;
 }
 value.set(Math.min(60+20*boostCount,200));
@@ -1731,8 +1744,8 @@ value.modify(2,'Smelling Salts + Paralysis');
 }
 }
 if(['storedpower','powertrip'].includes(move.id)&&target){
-var _boostCount=0;for(var _i22=0,_Object$values2=
-Object.values(pokemon.boosts);_i22<_Object$values2.length;_i22++){var _boost=_Object$values2[_i22];
+var _boostCount=0;for(var _i44=0,_Object$values4=
+Object.values(pokemon.boosts);_i44<_Object$values4.length;_i44++){var _boost=_Object$values4[_i44];
 if(_boost>0)_boostCount+=_boost;
 }
 value.set(20+20*_boostCount);
@@ -1941,8 +1954,8 @@ value.abilityModify(1.2,'Reckless');
 
 if(move.category!=='Status'){
 var auraBoosted='';
-var auraBroken=false;for(var _i23=0,_pokemon$side$active2=
-pokemon.side.active;_i23<_pokemon$side$active2.length;_i23++){var ally=_pokemon$side$active2[_i23];
+var auraBroken=false;for(var _i46=0,_pokemon$side$active4=
+pokemon.side.active;_i46<_pokemon$side$active4.length;_i46++){var ally=_pokemon$side$active4[_i46];
 if(!ally||ally.fainted)continue;
 var allyAbility=this.getAllyAbility(ally);
 if(moveType==='Fairy'&&allyAbility==='Fairy Aura'){
@@ -1958,8 +1971,8 @@ value.modify(1.3,'Power Spot');
 }else if(allyAbility==='Steely Spirit'&&moveType==='Steel'){
 value.modify(1.5,'Steely Spirit');
 }
-}for(var _i24=0,_pokemon$side$foe$act=
-pokemon.side.foe.active;_i24<_pokemon$side$foe$act.length;_i24++){var foe=_pokemon$side$foe$act[_i24];
+}for(var _i48=0,_pokemon$side$foe$act2=
+pokemon.side.foe.active;_i48<_pokemon$side$foe$act2.length;_i48++){var foe=_pokemon$side$foe$act2[_i48];
 if(!foe||foe.fainted)continue;
 if(foe.ability==='Fairy Aura'&&moveType==='Fairy'){
 auraBoosted='Fairy Aura';
@@ -2124,7 +2137,9 @@ value.itemModify(this.battle.gen<6?1.5:1.3);
 return value;
 }
 
-if(itemName==='Punching Glove'&&move.flags['punch']){
+if(itemName==='Muscle Band'&&move.category==='Physical'||
+itemName==='Wise Glasses'&&move.category==='Special'||
+itemName==='Punching Glove'&&move.flags['punch']){
 value.itemModify(1.1);
 }
 
@@ -2138,8 +2153,8 @@ return this.battle.dex.species.get(pokemon.speciesForme).types;
 return pokemon.getTypeList(undefined,preterastallized);
 };_proto2.
 pokemonHasType=function pokemonHasType(pokemon,type,types){
-if(!types)types=this.getPokemonTypes(pokemon);for(var _i25=0,_types=
-types;_i25<_types.length;_i25++){var curType=_types[_i25];
+if(!types)types=this.getPokemonTypes(pokemon);for(var _i50=0,_types2=
+types;_i50<_types2.length;_i50++){var curType=_types2[_i50];
 if(curType===type)return true;
 }
 return false;
@@ -2159,8 +2174,8 @@ return allyAbility;
 };_proto2.
 getPokemonAbilityData=function getPokemonAbilityData(clientPokemon,serverPokemon){
 var abilityData={
-ability:'',baseAbility:'',possibilities:[]};
-
+ability:'',baseAbility:'',possibilities:[]
+};
 if(clientPokemon){
 if(clientPokemon.ability){
 abilityData.ability=clientPokemon.ability||clientPokemon.baseAbility;
@@ -2310,8 +2325,8 @@ var moveCount={
 'Ultrafast':0,
 'bulk':0,
 'specialBulk':0,
-'physicalBulk':0};
-
+'physicalBulk':0
+};
 var hasMove={};
 var itemid=toID(set.item);
 var item=this.dex.items.get(itemid);
@@ -2607,8 +2622,8 @@ var hasMove=this.hasMove;
 var moveCount=this.moveCount;
 
 var evs={
-hp:0,atk:0,def:0,spa:0,spd:0,spe:0};
-
+hp:0,atk:0,def:0,spa:0,spd:0,spe:0
+};
 var plusStat='';
 var minusStat='';
 
@@ -2627,8 +2642,8 @@ var statChart={
 'Bulky Special Sweeper':['spa','hp'],
 'Fast Bulky Support':['spe','hp'],
 'Physically Defensive':['def','hp'],
-'Specially Defensive':['spd','hp']};
-
+'Specially Defensive':['spd','hp']
+};
 
 plusStat=statChart[role][0];
 if(role==='Fast Bulky Support')moveCount['Ultrafast']=0;
@@ -2670,7 +2685,7 @@ var evTotal=0;
 var primaryStat=statChart[role][0];
 var stat=this.getStat(primaryStat,set,252,plusStat===primaryStat?1.1:1.0);
 var ev=252;
-while(ev>0&&stat<=this.getStat(primaryStat,set,ev-4,plusStat===primaryStat?1.1:1.0)){ev-=4;}
+while(ev>0&&stat<=this.getStat(primaryStat,set,ev-4,plusStat===primaryStat?1.1:1.0))ev-=4;
 evs[primaryStat]=ev;
 evTotal+=ev;
 
@@ -2678,7 +2693,7 @@ var secondaryStat=statChart[role][1];
 if(secondaryStat==='hp'&&set.level&&set.level<20)secondaryStat='spd';
 stat=this.getStat(secondaryStat,set,252,plusStat===secondaryStat?1.1:1.0);
 ev=252;
-while(ev>0&&stat<=this.getStat(secondaryStat,set,ev-4,plusStat===secondaryStat?1.1:1.0)){ev-=4;}
+while(ev>0&&stat<=this.getStat(secondaryStat,set,ev-4,plusStat===secondaryStat?1.1:1.0))ev-=4;
 evs[secondaryStat]=ev;
 evTotal+=ev;
 
@@ -2773,14 +2788,14 @@ secondaryStat='def';
 if(secondaryStat){
 ev=remaining;
 stat=this.getStat(secondaryStat,set,ev);
-while(ev>0&&stat===this.getStat(secondaryStat,set,ev-4)){ev-=4;}
+while(ev>0&&stat===this.getStat(secondaryStat,set,ev-4))ev-=4;
 if(ev)evs[secondaryStat]=ev;
 remaining-=ev;
 }
 if(remaining&&!evs['spe']){
 ev=remaining;
 stat=this.getStat('spe',set,ev);
-while(ev>0&&stat===this.getStat('spe',set,ev-4)){ev-=4;}
+while(ev>0&&stat===this.getStat('spe',set,ev-4))ev-=4;
 if(ev)evs['spe']=ev;
 }
 }
